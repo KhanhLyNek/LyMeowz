@@ -1,0 +1,75 @@
+name: LyMeowz Client Source Workbench
+
+on:
+  push:
+    branches:
+      - client-src/workbench
+    paths:
+      - .github/workflows/client-workbench.yml
+      - ClientDev/tools/**
+      - ClientDev/build.sh
+      - LyMeowz.jar
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lymeowz-client-workbench
+  cancel-in-progress: true
+
+jobs:
+  source-workbench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout recovery branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify input
+        run: |
+          unzip -t LyMeowz.jar > /dev/null
+          sha256sum LyMeowz.jar ClientSRC/SOURCE_SHA256.txt
+      - name: Download pinned CFR
+        run: |
+          curl --fail --location --retry 3 --silent --show-error \
+            https://repo.maven.apache.org/maven2/org/benf/cfr/0.152/cfr-0.152.jar \
+            --output /tmp/cfr-0.152.jar
+          test "$(stat -c%s /tmp/cfr-0.152.jar)" -gt 1000000
+      - name: Decompile with duplicated member recovery
+        run: |
+          rm -rf ClientDev/src
+          mkdir -p ClientDev/src
+          java -Xmx3g -jar /tmp/cfr-0.152.jar LyMeowz.jar \
+            --outputdir ClientDev/src \
+            --renamedupmembers true --renameillegalidents true \
+            --silent true
+      - name: Normalize source packages and audit network references
+        run: python3 ClientDev/tools/prepare.py
+      - name: Probe Java ME compilation
+        run: bash ClientDev/build.sh --probe
+      - name: Upload compiler report and rebuilt JAR if available
+        uses: actions/upload-artifact@v4
+        with:
+          name: lymeowz-client-build-probe
+          if-no-files-found: ignore
+          path: |
+            ClientDev/reports/*.md
+            ClientDev/dist/*.jar
+      - name: Commit generated workspace and reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/src ClientDev/reports
+          if git diff --cached --quiet; then
+            echo "Nothing changed"
+          else
+            git commit -m "Generate cleaned client source and build/protocol reports"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
