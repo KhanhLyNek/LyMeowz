@@ -254,7 +254,8 @@ doctor() {
 help_() {
   cat <<'HELP'
 Lệnh NRO trên Termux:
-  nro_get_server     Tải Server.jar CŨ từ lịch sử repo (tùy chọn)\n  nro_on             Mở Server.jar (nếu có file)
+  nro_get_server     Tải Server.jar CŨ từ lịch sử repo (tùy chọn)
+  nro_on             Mở Server.jar (nếu có file)
   nro_off            Dừng server do launcher mở
   nro_status         Kiểm tra tiến trình / cổng / MariaDB
   nro_logs           Xem log server (Ctrl+C để thoát log)
@@ -270,7 +271,8 @@ HELP
 
 action="${1:-}"
 case "$(basename "$0")" in
-  nro_get_server) action=get-server ;;\n  nro_on) action=on ;;
+  nro_get_server) action=get-server ;;
+  nro_on) action=on ;;
   nro_off) action=off ;;
   nro_status) action=status ;;
   nro_logs) action=logs ;;
@@ -280,7 +282,8 @@ case "$(basename "$0")" in
   nro_doctor) action=doctor ;;
 esac
 case "$action" in
-  get-server) get_server ;;\n  on) on ;;
+  get-server) get_server ;;
+  on) on ;;
   off) off ;;
   status) status ;;
   logs) ensure_dirs; touch "$GAME_LOG"; tail -n 60 -f "$GAME_LOG" ;;
