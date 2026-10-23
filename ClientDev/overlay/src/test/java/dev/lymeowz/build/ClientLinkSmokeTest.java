@@ -30,6 +30,35 @@ public final class ClientLinkSmokeTest {
             if (startup.getParameterCount() != 0 || startup.getReturnType() != void.class) {
                 throw new AssertionError("MIDlet startup method signature changed");
             }
+            // Link representative original network/data components without
+            // instantiating them or opening any connection.
+            String[] components = {
+                "IOo_",               // packet stream reader and writer
+                "IO0",                // incoming command router
+                "IO1O",               // socket wrapper
+                "I1I1",               // game command handling
+                "nrolite.DataDownloader"
+            };
+            for (String component : components) {
+                Class<?> linked = Class.forName(component, false, loader);
+                if (linked.getClassLoader() != loader) {
+                    throw new AssertionError("Unexpected class source for " + component);
+                }
+            }
+
+            // Read archive resources without triggering the game's loader.
+            try (java.io.InputStream manifest =
+                     loader.getResourceAsStream("META-INF/MANIFEST.MF")) {
+                if (manifest == null || manifest.read() < 0) {
+                    throw new AssertionError("Missing or empty MIDlet manifest");
+                }
+            }
+            try (java.io.InputStream icon = loader.getResourceAsStream("icon.png")) {
+                if (icon == null || icon.read() < 0) {
+                    throw new AssertionError("Missing or empty client icon");
+                }
+            }
+
             Class<?> hook = Class.forName("dev.lymeowz.client.BuildHook", false, loader);
             if (hook.getClassLoader() != loader) {
                 throw new AssertionError("BuildHook did not come from rebuilt JAR");
@@ -53,7 +82,8 @@ public final class ClientLinkSmokeTest {
             if (!expected.equals(message)) {
                 throw new AssertionError("Unexpected BuildHook output");
             }
-            System.out.println("PASS: actual client MIDlet class linked without initializing game state");
+            System.out.println("PASS: actual client MIDlet and five network/data classes linked without initialization");
+            System.out.println("PASS: JAR manifest and icon readable");
             System.out.println("PASS: extension class loaded and ran from rebuilt client JAR");
             System.out.println("NOTE: GameMidlet.startApp() was NOT executed; gameplay is untested");
         }
