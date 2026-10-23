@@ -1,0 +1,32 @@
+name: Inspect LyMeowz bytecode compatibility
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - .github/workflows/inspect-client-bytecode.yml
+      - ClientDev/tools/inspect_jar.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect-header-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect Java class versions safely without executing JAR
+        run: python3 ClientDev/tools/inspect_jar.py
+      - name: Commit bytecode compatibility inventory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/reports/bytecode-inventory.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Document bytecode class versions for Java ME compatibility"
+            git fetch origin client-src/workbench
+            git rebase origin/client-src/workbench
+            git push origin HEAD:client-src/workbench
+          fi
