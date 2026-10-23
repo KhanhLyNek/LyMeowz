@@ -1,0 +1,31 @@
+name: Termux Local NRO Launchers
+
+on:
+  push:
+    branches:
+      - termux/nro-local
+    paths:
+      - Termux/**
+      - .github/workflows/termux-nro-local.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shell-check-and-offline-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Shell syntax validation
+        run: |
+          bash -n Termux/nroctl
+          bash -n Termux/install.sh
+          bash -n Termux/tests/test_launcher.sh
+      - name: Inert offline launcher tests
+        run: bash Termux/tests/test_launcher.sh
