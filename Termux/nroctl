@@ -123,6 +123,38 @@ db_off() {
   say "Không tìm thấy MariaDB do NRO launcher quản lý; không dừng service khác."
 }
 
+# Explicit opt-in recovery of this repository owner's deleted historical JAR.
+# Never restore private config/secrets or publish server binaries to branches.
+get_server() {
+  ensure_dirs
+  command -v curl >/dev/null 2>&1 || fail "Thiếu curl. Chạy pkg install curl."
+  command -v git >/dev/null 2>&1 || fail "Thiếu git. Chạy pkg install git."
+  command -v unzip >/dev/null 2>&1 || fail "Thiếu unzip. Chạy pkg install unzip."
+  if [[ -e "$NRO_JAR" ]]; then
+    fail "Đã có $NRO_JAR; không ghi đè. Hãy sao lưu và di chuyển file trước nếu muốn thay."
+  fi
+  local url expected tmp got
+  url="https://raw.githubusercontent.com/KhanhLyNek/LyMeowz/b290d4c3359a9b5718b9274280f41b5f4ca6a4a8/Server/Server.jar"
+  expected="1cd01f6f486c7045c5c741e9514496c84d105cfe"
+  tmp="$(mktemp "$NRO_SERVER_DIR/.Server.jar.XXXXXX")"
+  say "Đang tải bản Server.jar cũ ~15 MB từ lịch sử repo đã bị xóa (theo yêu cầu)."
+  if ! curl --proto '=https' --tlsv1.2 --fail --location --retry 3 --silent --show-error "$url" -o "$tmp"; then
+    rm -f "$tmp"; fail "Không tải được bản lịch sử Server.jar từ GitHub."
+  fi
+  got="$(git hash-object "$tmp")"
+  if [[ "$got" != "$expected" ]]; then
+    rm -f "$tmp"; fail "Git SHA-1 không trùng bản Server.jar lịch sử. Từ chối dùng file lạ."
+  fi
+  if ! unzip -t "$tmp" >/dev/null 2>&1; then
+    rm -f "$tmp"; fail "Server.jar lịch sử không có định dạng ZIP/JAR hợp lệ."
+  fi
+  mv "$tmp" "$NRO_JAR"
+  chmod 600 "$NRO_JAR"
+  say "Đã lưu và xác minh Server.jar tại: $NRO_JAR"
+  say "LƯU Ý: JAR cũ chưa được kiểm thử Termux và chưa có config/SQL/resources."
+  say "Không kết nối server public; cần cấu hình DB, IP/port và các tài nguyên theo bộ server gốc."
+}
+
 db_import() {
   [[ $# -ge 1 ]] || fail "Cách dùng: nro_db_import /đường/dẫn/nro.sql"
   local sql="$1"
@@ -222,7 +254,7 @@ doctor() {
 help_() {
   cat <<'HELP'
 Lệnh NRO trên Termux:
-  nro_on             Mở Server.jar (nếu có file)
+  nro_get_server     Tải Server.jar CŨ từ lịch sử repo (tùy chọn)\n  nro_on             Mở Server.jar (nếu có file)
   nro_off            Dừng server do launcher mở
   nro_status         Kiểm tra tiến trình / cổng / MariaDB
   nro_logs           Xem log server (Ctrl+C để thoát log)
@@ -238,7 +270,7 @@ HELP
 
 action="${1:-}"
 case "$(basename "$0")" in
-  nro_on) action=on ;;
+  nro_get_server) action=get-server ;;\n  nro_on) action=on ;;
   nro_off) action=off ;;
   nro_status) action=status ;;
   nro_logs) action=logs ;;
@@ -248,7 +280,7 @@ case "$(basename "$0")" in
   nro_doctor) action=doctor ;;
 esac
 case "$action" in
-  on) on ;;
+  get-server) get_server ;;\n  on) on ;;
   off) off ;;
   status) status ;;
   logs) ensure_dirs; touch "$GAME_LOG"; tail -n 60 -f "$GAME_LOG" ;;
