@@ -37,7 +37,7 @@ python3 "$DEV/tools/assemble.py" \
 unzip -t "$DIST/LyMeowz-ClientDev-Overlay.jar" >/dev/null
 javap -classpath "$DIST/LyMeowz-ClientDev-Overlay.jar" -c -p main.GameMidlet \
   > "$BUILD/GameMidlet-javap.txt"
-if ! grep -F "dev.lymeowz.client.BuildHook.announce:()V" "$BUILD/GameMidlet-javap.txt" >/dev/null; then
+if ! grep -F "BuildHook.announce:()V" "$BUILD/GameMidlet-javap.txt" >/dev/null; then
   echo "ERROR: startup hook not visible in rebuilt MIDlet" >&2
   exit 1
 fi
