@@ -31,7 +31,7 @@ fi
 cp "$ROOT/nroctl" "$BINDIR/nroctl.tmp.$$"
 chmod 755 "$BINDIR/nroctl.tmp.$$"
 mv -f "$BINDIR/nroctl.tmp.$$" "$BINDIR/nroctl"
-for command in nro_on nro_off nro_status nro_logs nro_doctor nro_db_on nro_db_off nro_db_import; do
+for command in nro_get_server nro_on nro_off nro_status nro_logs nro_doctor nro_db_on nro_db_off nro_db_import; do
   if [[ -e "$BINDIR/$command" && ! -L "$BINDIR/$command" ]]; then
     echo "Đã có $BINDIR/$command; không ghi đè file hiện tại." >&2
     continue
@@ -42,5 +42,5 @@ echo
 echo "Cài lệnh Termux xong. Nếu command not found, mở Termux lại."
 echo "Tải hoặc chép JAR server của bạn vào: $NRO_DIR/server/Server.jar"
 echo "Config riêng: $CFG_DIR/config.env"
-echo "Lệnh gõ: nro_doctor; nro_db_on; nro_on; nro_status; nro_logs; nro_off"
+echo "Lệnh gõ: nro_doctor; nro_get_server; nro_db_on; nro_on; nro_status; nro_logs; nro_off"
 echo "Lưu ý: repo LyMeowz này KHÔNG chứa Server.jar hoặc database NRO."
