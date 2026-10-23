@@ -20,6 +20,7 @@ NRO_JAVA_BIN="${NRO_JAVA_BIN:-java}"
 NRO_HEAP_MB="${NRO_HEAP_MB:-384}"
 NRO_MAIN_CLASS="${NRO_MAIN_CLASS:-}"
 NRO_GAME_PORT="${NRO_GAME_PORT:-14445}"
+NRO_API_PORT="${NRO_API_PORT:-8181}"
 NRO_AUTOSTART_DB="${NRO_AUTOSTART_DB:-0}"
 NRO_DB_NAME="${NRO_DB_NAME:-nro_local}"
 NRO_DB_PORT="${NRO_DB_PORT:-3306}"
@@ -63,24 +64,30 @@ running_pid() {
 }
 
 listen_check() {
-  # The Java JAR owns its socket configuration; this CLI cannot force bind-host.
-  # Fail closed if the expected port is seen listening on a wildcard address.
+  # Java JAR owns its socket configuration; we cannot force bind-host.
+  # Check BOTH known server ports (game + API) from the original config.
   if ! command -v ss >/dev/null 2>&1; then
-    say "CẢNH BÁO: không có ss; chưa kiểm chứng bind IP. Hãy cấu hình server chỉ nghe 127.0.0.1."
+    say "CẢNH BÁO: thiếu ss; không xác minh được cổng game/API chỉ nghe 127.0.0.1."
     return 0
   fi
-  local output matching
-  output="$(ss -ltn 2>/dev/null)" || { say "CẢNH BÁO: Android chặn kiểm tra socket; chưa xác nhận localhost."; return 0; }
-  matching="$(printf '%s\n' "$output" | grep -E ":[0]*${NRO_GAME_PORT}[[:space:]]" || true)"
-  if [[ -z "$matching" ]]; then
-    say "CẢNH BÁO: chưa thấy cổng $NRO_GAME_PORT lắng nghe; kiểm tra log và NRO_GAME_PORT."
+  local output port matching
+  output="$(ss -ltn 2>/dev/null)" || {
+    say "CẢNH BÁO: Android chặn kiểm tra socket; không xác nhận localhost."
     return 0
-  fi
-  if printf '%s\n' "$matching" | grep -Eq '(^|[[:space:]])(0\.0\.0\.0|\*|\[::\]|::):[0]*[0-9]+'; then
-    say "KHÔNG AN TOÀN: phát hiện bind mọi IP trên cổng $NRO_GAME_PORT."
-    return 1
-  fi
-  say "Port $NRO_GAME_PORT hiện hiển thị: $matching"
+  }
+  for port in "$NRO_GAME_PORT" "$NRO_API_PORT"; do
+    [[ "$port" == 0 ]] && continue
+    matching="$(printf '%s\n' "$output" | grep -E ":[0]*${port}[[:space:]]" || true)"
+    if [[ -z "$matching" ]]; then
+      say "CẢNH BÁO: chưa thấy port $port lắng nghe (có thể server đang khởi tạo)."
+      continue
+    fi
+    if printf '%s\n' "$matching" | grep -Eq '(^|[[:space:]])(0\.0\.0\.0|\*|\[::\]|::):[0]*[0-9]+'; then
+      say "KHÔNG AN TOÀN: port $port đang bind mọi IP. Không chạy server ra LAN."
+      return 1
+    fi
+    say "Port $port: $matching"
+  done
   return 0
 }
 
@@ -174,6 +181,7 @@ on() {
   [[ -f "$NRO_JAR" && -s "$NRO_JAR" ]] || fail "Thiếu $NRO_JAR. Hãy tự chép Server.jar vào đây; repo hiện không chứa server."
   [[ "$NRO_HEAP_MB" =~ ^[0-9]+$ ]] && (( NRO_HEAP_MB >= 128 && NRO_HEAP_MB <= 8192 )) || fail "NRO_HEAP_MB chỉ nhận 128..8192."
   positive_number "$NRO_GAME_PORT" || fail "NRO_GAME_PORT không hợp lệ."
+  { [[ "$NRO_API_PORT" == 0 ]] || positive_number "$NRO_API_PORT"; } || fail "NRO_API_PORT không hợp lệ."
   command -v "$NRO_JAVA_BIN" >/dev/null 2>&1 || fail "Không tìm thấy Java. Chạy pkg install openjdk-17."
   command -v unzip >/dev/null 2>&1 || fail "Thiếu unzip. Chạy pkg install unzip."
   unzip -t "$NRO_JAR" >/dev/null || fail "Server.jar không hợp lệ hoặc bị hỏng."
@@ -237,8 +245,8 @@ status() {
     say "Java PID: không chạy"
   fi
   if db_ping; then say "MariaDB: đang trả lời qua local socket"; else say "MariaDB: chưa sẵn sàng"; fi
-  say "Host mong muốn: 127.0.0.1 | Game port dự kiến: $NRO_GAME_PORT"
-  say "Server thực tế quyết định IP/port; NRO_GAME_PORT chỉ để kiểm tra, không cấu hình JAR."
+  say "Host mong muốn: 127.0.0.1 | Game: $NRO_GAME_PORT | API: $NRO_API_PORT"
+  say "Server thực tế quyết định IP/port; GAME/API_PORT chỉ để kiểm tra, không cấu hình JAR."
 }
 
 doctor() {
