@@ -16,6 +16,8 @@ export PREFIX="$TMP/prefix"
 mkdir -p "$HOME" "$PREFIX/bin"
 bash "$REPO/Termux/install.sh" --skip-packages
 export PATH="$PREFIX/bin:$PATH"
+command -v nro_get_server >/dev/null
+nroctl help | grep -q nro_get_server
 
 # No NRO server JAR is included, so startup MUST fail transparently.
 set +e
