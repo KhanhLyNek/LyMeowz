@@ -1,0 +1,64 @@
+name: Preserve full Vineflower source on development branch
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - .github/workflows/persist-vineflower-src.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  preserve-alt-java:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download previously generated Vineflower sources
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/lymeowz-vineflower
+          gh run download 39933980715 --repo KhanhLyNek/LyMeowz \
+            --name lymeowz-vineflower-alternative \
+            --dir /tmp/lymeowz-vineflower
+      - name: Copy complete reconstructed Java into isolated path
+        run: |
+          set -euo pipefail
+          target="$(find /tmp/lymeowz-vineflower -path '*/vineflower-src/I1I1.java' -print -quit)"
+          test -n "$target"
+          root="$(dirname "$target")"
+          count="$(find "$root" -type f -name '*.java' | wc -l)"
+          test "$count" -ge 300
+          mkdir -p ClientDev/VineflowerSRC
+          cp -a "$root/." ClientDev/VineflowerSRC/
+          cat > ClientDev/VineflowerSRC/README.md <<'EOF'
+          # Vineflower-recovered Java source
+
+          This is **Vineflower 1.12.0** output from the original LyMeowz.jar
+          (plus experimental default-package normalization). It is separate
+          from CFR's ClientDev/src and from the original ClientSRC.
+
+          **Status: NOT BUILDABLE.** 307 Java files; 0 invalid ** GOTO
+          markers, but hundreds of duplicate-symbol javac errors. Review
+          ClientDev/reports/decompiler-comparison.md before using this
+          source. No original comments or variable names can be recovered
+          reliably. All changes must be reviewed for licensing rights.
+
+          Do not merge this directly over ClientDev/src or into main.
+          EOF
+          echo "Preserved $count alternative Java files"
+      - name: Commit separate alternative source tree to workbench
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/VineflowerSRC/
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve 307 Vineflower Java files as separate recovery candidate"
+            git fetch origin client-src/workbench
+            git rebase origin/client-src/workbench
+            git push origin HEAD:client-src/workbench
+          fi
