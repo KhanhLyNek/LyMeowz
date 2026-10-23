@@ -1,0 +1,32 @@
+name: Offline JVM Smoke Test for NRO Client Overlay
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - ClientDev/overlay/**
+      - .github/workflows/client-overlay-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify real client class linking and benign fixture execution
+        run: bash ClientDev/overlay/smoke.sh
+      - name: Store smoke-tested overlay JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: LyMeowz-ClientDev-Smoke-Tested-Overlay
+          path: ClientDev/overlay/dist/LyMeowz-ClientDev-Overlay.jar
+          if-no-files-found: error
+          retention-days: 14
