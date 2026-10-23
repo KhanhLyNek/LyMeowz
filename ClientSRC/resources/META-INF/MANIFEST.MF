@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+MIDlet-Vendor: Phạm Hoàng Khánh Ly
+MIDlet-Version: 1.0.0
+MIDlet-1: LyMeowz,/icon.png,main.GameMidlet
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Name: LyMeowz
+MicroEdition-Profile: MIDP-2.0
+Created-By: 22.0.2 (Oracle Corporation)
+
