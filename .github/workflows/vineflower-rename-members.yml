@@ -1,0 +1,160 @@
+name: Vineflower Member Renaming Compile Experiment
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - .github/workflows/vineflower-rename-members.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vineflower-rename-members
+  cancel-in-progress: true
+
+jobs:
+  rename-members-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Download pinned Vineflower
+        run: |
+          curl --fail --location --retry 3 --silent --show-error \
+            https://repo.maven.apache.org/maven2/org/vineflower/vineflower/1.12.0/vineflower-1.12.0.jar \
+            -o /tmp/vineflower.jar
+          test "$(stat -c%s /tmp/vineflower.jar)" -gt 1000000
+      - name: Recover classes with Vineflower member renaming
+        run: |
+          mkdir -p ClientDev/.build/renamed-vineflower-src
+          timeout -k 10s 900s java -Xmx4g -jar /tmp/vineflower.jar \
+            --folder --rename-members=1 \
+            LyMeowz.jar ClientDev/.build/renamed-vineflower-src \
+            > /tmp/vineflower-renamed.log 2>&1
+          test "$(find ClientDev/.build/renamed-vineflower-src -name '*.java' | wc -l)" -gt 200
+      - name: Prepare package layout for Java syntax probe
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          d=Path('ClientDev/.build/renamed-vineflower-src')
+          changed=0
+          for path in d.rglob('*.java'):
+            if path.parent==d:
+              content=path.read_text(encoding='utf-8',errors='replace')
+              if not content.lstrip().startswith('package '):
+                path.write_text('package main;\n\n'+content,encoding='utf-8')
+                changed+=1
+          print('Default-package Java adapted:',changed)
+          PY
+      - name: Check full recovered Java source against MIDP CLDC APIs
+        run: |
+          set -e
+          mkdir -p /tmp/j2me-libs ClientDev/.build/renamed-vineflower-classes
+          for artifact in cldcapi11 midpapi20; do
+            curl --fail --location --retry 3 --silent --show-error \
+              "https://repo.maven.apache.org/maven2/org/microemu/$artifact/2.0.4/$artifact-2.0.4.jar" \
+              -o "/tmp/j2me-libs/$artifact.jar"
+          done
+          find ClientDev/.build/renamed-vineflower-src -name '*.java' -type f | sort \
+            > /tmp/renamed-vineflower-sources.txt
+          set +e
+          javac --release 8 -encoding UTF-8 -Xmaxerrs 1000 \
+            -cp "/tmp/j2me-libs/cldcapi11.jar:/tmp/j2me-libs/midpapi20.jar" \
+            -d ClientDev/.build/renamed-vineflower-classes \
+            @/tmp/renamed-vineflower-sources.txt \
+            > /tmp/renamed-vineflower-javac.log 2>&1
+          rc=$?
+          set -e
+          echo "$rc" >/tmp/renamed-vineflower.exit
+          echo "Recovered source javac exit: $rc"
+      - name: Write sanitized comparison and preserve representative recovered source
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          from collections import Counter
+          root=Path('ClientDev/.build/renamed-vineflower-src')
+          old=Path('ClientDev/reports/decompiler-comparison.md')
+          src=sorted(root.rglob('*.java'))
+          flags=Counter()
+          for p in src:
+            data=p.read_text(encoding='utf-8',errors='replace')
+            flags['gotos']+=len(re.findall(r'\*\*\s+GOTO\b',data))
+          log=Path('/tmp/renamed-vineflower-javac.log').read_text(encoding='utf-8',errors='replace')
+          errors=Counter()
+          for line in log.splitlines():
+            m=re.search(r'\.java:(\d+): error: (.+)$',line)
+            if not m:
+              continue
+            message=m.group(2)
+            if 'already defined' in message: errors['duplicate members']+=1
+            elif 'cannot find symbol' in message: errors['missing symbol']+=1
+            elif 'incompatible types' in message: errors['type mismatch']+=1
+            elif 'does not exist' in message: errors['missing package']+=1
+            elif 'expected' in message or 'illegal' in message or 'not a statement' in message: errors['syntax']+=1
+            else: errors['other']+=1
+          rc=int(Path('/tmp/renamed-vineflower.exit').read_text().strip())
+          report=[
+            '# Vineflower rename-members=1 compilation experiment','',
+            'Alternative decompilation directly from original LyMeowz.jar, not from CFR output.','',
+            f'- Java files: **{len(src)}**',
+            f'- Invalid GOTO markers: **{flags["gotos"]}**',
+            f'- javac status: **{"PASS" if rc==0 else "FAIL (exit "+str(rc)+")"}**',
+            f'- Captured javac errors: **{sum(errors.values())}** (up to 1000)',
+            f'- Duplicate-name errors: **{errors["duplicate members"]}**',
+            '',
+            '| Category | Count |','|---|---:|',
+          ]
+          report += [f'| {cat} | {num} |' for cat,num in errors.most_common()]
+          report += ['', 'This experiment does not establish MIDP runtime compatibility or preserve original obfuscated binary class names.',
+                     'The output is kept separate so dependency names and resource loading can be checked before replacement.']
+          out=Path('ClientDev/reports/vineflower-renamed.md')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text('\n'.join(report)+'\n',encoding='utf-8')
+          target = next((p for p in src if p.name=='I1I1.java'),None)
+          if target:
+            dest=Path('ClientDev/recovery-vineflower-renamed/I1I1.java')
+            dest.parent.mkdir(parents=True,exist_ok=True)
+            dest.write_bytes(target.read_bytes())
+          print('JAVA_FILES',len(src),'INVALID_GOTOS',flags['gotos'],'EXIT',rc,'ERRS',dict(errors))
+          if rc==0:
+            import shutil
+            dest=Path('ClientDev/vineflower-renamed/src')
+            if dest.exists(): shutil.rmtree(dest)
+            shutil.copytree(root,dest)
+            print('All alternative Java files staged because javac passed')
+          PY
+      - name: Upload full alternative candidate, compiler diagnostics and report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lymeowz-vineflower-renamed-src
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ClientDev/.build/renamed-vineflower-src/**/*.java
+            ClientDev/.build/renamed-vineflower-src/*.java
+            ClientDev/reports/vineflower-renamed.md
+            /tmp/renamed-vineflower-javac.log
+      - name: Commit only safe results to workbench
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/reports/vineflower-renamed.md
+          if test -f ClientDev/recovery-vineflower-renamed/I1I1.java; then
+            git add ClientDev/recovery-vineflower-renamed/I1I1.java
+          fi
+          if test -d ClientDev/vineflower-renamed/src; then
+            git add ClientDev/vineflower-renamed/src
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Record Vineflower renamed-member recovery experiment"
+            git fetch origin client-src/workbench
+            git rebase origin/client-src/workbench
+            git push origin HEAD:client-src/workbench
+          fi
