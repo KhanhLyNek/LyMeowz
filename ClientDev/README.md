@@ -94,3 +94,14 @@ classfile version 52.0 is retained.
 This overlay is the recommended **first incremental-development path**, not a
 source reconstruction success claim. Full-source recovery efforts remain
 separate.
+
+## Safe JVM class loading and overlay runtime smoke tests
+
+[GitHub Actions #39940981442](https://github.com/KhanhLyNek/LyMeowz/actions/runs/39940981442)
+**PASS**. The original patched client `GameMidlet` and five representative
+network/data classes are linked with initialization disabled. Resources
+(manifest and icon) are readable. Our own `BuildHook.announce()` is invoked
+from the rebuilt JAR; a separate harmless fixture proves patch entry ordering.
+
+Run `bash ClientDev/overlay/smoke.sh` to reproduce. **No real game
+initialization or online session was attempted.** See `overlay/README.md`.
