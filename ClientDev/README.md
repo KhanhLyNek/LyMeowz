@@ -51,3 +51,17 @@ reports in the `client-src/workbench` branch.
 
 Do not merge generated output to `main` without test results and permission
 to use/redistribute the binary's underlying game resources.
+
+## Decompiler recovery comparison (October 2026)
+
+- **CFR 0.152**: 260 Java files, 58 invalid `** GOTO` markers; full source javac FAIL.
+- **Vineflower 1.12.0 (default)**: 307 Java files, zero invalid `** GOTO` markers, but 297 out of the first 300 compiler errors concern duplicate symbols.
+- **Procyon 0.6.0 (I1I1.java only)**: zero invalid `** GOTO` markers in the difficult class, yet its isolated compile produces many errors from obfuscated members and malformed expressions.
+- **Input JAR classfile version**: all 351 classfile entries are 52.0 (Java 8), even though the JAR manifest declares MIDP 2.0 / CLDC 1.1.
+- **Vineflower `--rename-members=1`**: separate experiment; see the workflow and `reports/vineflower-renamed.md` once generated.
+
+Reports in `ClientDev/reports/`: `compile.md`, `source-audit.md`, `protocol-analysis.md`, `decompiler-comparison.md`, `procyon-target.md`, `I1I1-compile-comparison.md`, and `bytecode-inventory.md`.
+
+Recovery candidates are deliberately kept in `ClientDev/recovery-procyon/` and `ClientDev/recovery-vineflower/`, not merged into `ClientDev/src/`. The full original CFR recovery remains available in `ClientSRC/`. **None of the alternative sources are considered a working client until a full build and runtime test passes.**
+
+The original `LyMeowz.jar` file is an experimental bytecode reference, **not** a substitute for user-controlled rights to modify/distribute the game's code and resources.
