@@ -65,3 +65,32 @@ Reports in `ClientDev/reports/`: `compile.md`, `source-audit.md`, `protocol-anal
 Recovery candidates are deliberately kept in `ClientDev/recovery-procyon/` and `ClientDev/recovery-vineflower/`, not merged into `ClientDev/src/`. The full original CFR recovery remains available in `ClientSRC/`. **None of the alternative sources are considered a working client until a full build and runtime test passes.**
 
 The original `LyMeowz.jar` file is an experimental bytecode reference, **not** a substitute for user-controlled rights to modify/distribute the game's code and resources.
+
+## Bytecode overlay — verified experimental JAR (October 23, 2026)
+
+**The full decompiled source still does not compile.** To unblock incremental
+client development, `ClientDev/overlay/` builds a **separate** Java 8 JAR
+from the unmodified original `LyMeowz.jar` plus a small source-coded extension.
+
+```bash
+bash ClientDev/overlay/build.sh
+```
+
+Verified in [GitHub Actions run #39937830850](https://github.com/KhanhLyNek/LyMeowz/actions/runs/39937830850):
+
+- Full build and JAR integrity checks: **PASS**
+- Existing 351 original classes: **350 byte-identical**, one modified
+  (`main/GameMidlet.class`)
+- Added extension: `dev/lymeowz/client/BuildHook.class`
+- Total resulting classes: **352**, preserving all original resource bytes
+- Injected single call to `BuildHook.announce()` into
+  `main.GameMidlet.startApp()`; confirmed by ASM and `javap`
+- Output SHA-256: `3a3e89b8c9bd924d3edc17dfc0206829bb57f359bf1c977208dc83e71d6b059c`
+
+**NOT YET TESTED:** Java ME launch, runtime execution, rendering, login,
+server compatibility, multiplayer or security. The existing original JAR's
+classfile version 52.0 is retained.
+
+This overlay is the recommended **first incremental-development path**, not a
+source reconstruction success claim. Full-source recovery efforts remain
+separate.
