@@ -59,3 +59,30 @@ packaging and bytecode inspection only, **not** launch or multiplayer behavior.
 
 Alternative source recoveries (CFR, Vineflower, Procyon) remain under
 `ClientDev/src`, `ClientDev/VineflowerSRC` and recovery directories.
+
+## Offline smoke tests (verified on GitHub Actions)
+
+Run:
+
+```bash
+bash ClientDev/overlay/smoke.sh
+```
+
+Verified by [offline smoke workflow](https://github.com/KhanhLyNek/LyMeowz/actions/runs/39940981442):
+
+- **PASS:** load actual patched `main.GameMidlet` without initialization.
+- **PASS:** resolve representative original client network/data classes
+  `IOo_`, `IO0`, `IO1O`, `I1I1` and `nrolite.DataDownloader`.
+- **PASS:** read the embedded `META-INF/MANIFEST.MF` and `icon.png`.
+- **PASS:** load and execute `BuildHook.announce()` from the built JAR.
+- **PASS:** synthetic offline `GameMidlet.startApp()` fixture executes the
+  injected hook exactly once **before** its harmless original print.
+
+**This does not execute the actual NRO `GameMidlet.startApp()`.** The tests
+deliberately avoid game initialization, HTTP downloads, sockets, account
+credentials and production servers. The synthetic fixture is separate from
+and not a substitute for testing real login, graphics or multiplayer.
+
+After this checkpoint, the next engineering step is a **network-isolated
+headless runtime harness** and explicit resource/packet interoperability tests
+against a test server controlled by the repo owner.
