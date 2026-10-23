@@ -53,6 +53,33 @@ Nếu JAR không khai báo `Main-Class`, kiểm tra entry point bằng
 sau đó điền `NRO_MAIN_CLASS` trong
 `~/.config/nro-termux/config.env`, **chỉ khi đã xác minh**.
 
+### Cách tự lấy lại JAR server cũ (không bắt buộc)
+
+Trong nhánh `main` mới, thư mục Server đã được chủ repo xóa.
+GitHub vẫn còn bản `Server/Server.jar` khoảng 15 MB ở commit
+`b290d4c3359a9b5718b9274280f41b5f4ca6a4a8`
+(trước commit `dbabb244` xóa thư mục).
+
+Nếu đúng là server bạn có quyền sử dụng và muốn lấy bản lịch sử:
+
+```bash
+nro_get_server
+```
+
+Lệnh trên chỉ tải riêng `Server.jar`, **xác minh Git blob SHA-1**
+(`1cd01f6f486c7045c5c741e9514496c84d105cfe`) rồi chuyển
+vào `~/nro-local/server/Server.jar`. Không tự khôi phục tài khoản,
+mật khẩu, `server.properties` hoặc 200 MB tài nguyên cũ,
+không tải SQL và **không chạy JAR**. Nếu bạn đã có Server.jar riêng,
+giữ bản của bạn và bỏ qua lệnh này.
+
+**Không đủ để chơi game chỉ với một JAR**: bản server lịch sử có
+`Server/resources/`, `Eff/`, `mob/` và file cấu hình (có thể
+chứa secret đã từng công khai). Chúng không được khôi phục tự động vì
+nguy cơ lộ mật khẩu và vượt dung lượng điện thoại. Dùng bản backup
+của bạn, thay tất cả credential cũ, điều chỉnh cấu hình IP/DB và
+sử dụng SQL hợp lệ riêng trước khi chạy.
+
 ## Bước 3 — MariaDB local (chỉ nếu server dùng SQL)
 
 ```bash
