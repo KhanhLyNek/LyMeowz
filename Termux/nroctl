@@ -1,0 +1,261 @@
+#!/usr/bin/env bash
+# NRO localhost server helper for Termux. Never downloads game binaries.
+set -euo pipefail
+
+say() { printf '%s\n' "$*"; }
+fail() { printf 'NRO ERROR: %s\n' "$*" >&2; exit 1; }
+
+NRO_ROOT="${NRO_ROOT:-$HOME/nro-local}"
+NRO_CONFIG="${NRO_CONFIG:-$HOME/.config/nro-termux/config.env}"
+if [[ -f "$NRO_CONFIG" ]]; then
+  # This is an owner-controlled local shell config, installed chmod 600.
+  # shellcheck source=/dev/null
+  source "$NRO_CONFIG"
+fi
+
+NRO_ROOT="${NRO_ROOT:-$HOME/nro-local}"
+NRO_SERVER_DIR="${NRO_SERVER_DIR:-$NRO_ROOT/server}"
+NRO_JAR="${NRO_JAR:-$NRO_SERVER_DIR/Server.jar}"
+NRO_JAVA_BIN="${NRO_JAVA_BIN:-java}"
+NRO_HEAP_MB="${NRO_HEAP_MB:-384}"
+NRO_MAIN_CLASS="${NRO_MAIN_CLASS:-}"
+NRO_GAME_PORT="${NRO_GAME_PORT:-14445}"
+NRO_AUTOSTART_DB="${NRO_AUTOSTART_DB:-0}"
+NRO_DB_NAME="${NRO_DB_NAME:-nro_local}"
+NRO_DB_PORT="${NRO_DB_PORT:-3306}"
+NRO_DB_SOCKET="${NRO_DB_SOCKET:-${PREFIX:-$HOME}/var/run/mysqld.sock}"
+NRO_DB_DATADIR="${NRO_DB_DATADIR:-${PREFIX:-$HOME}/var/lib/mysql}"
+
+RUNDIR="$NRO_ROOT/run"
+LOGDIR="$NRO_ROOT/logs"
+GAME_PID="$RUNDIR/server.pid"
+DB_PID="$RUNDIR/mariadb.pid"
+GAME_LOG="$LOGDIR/server.log"
+DB_LOG="$LOGDIR/mariadb.log"
+
+ensure_dirs() { mkdir -p "$RUNDIR" "$LOGDIR" "$NRO_SERVER_DIR"; chmod 700 "$NRO_ROOT" "$RUNDIR" "$LOGDIR" 2>/dev/null || true; }
+
+positive_number() {
+  [[ "$1" =~ ^[0-9]+$ ]] && (( 10#$1 >= 1 && 10#$1 <= 65535 ))
+}
+
+pid_from() {
+  local pid
+  [[ -f "$1" ]] || return 1
+  IFS= read -r pid < "$1" || true
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+  (( pid > 1 )) || return 1
+  printf '%s' "$pid"
+}
+
+running_pid() {
+  local pid
+  pid="$(pid_from "$1")" || return 1
+  kill -0 "$pid" 2>/dev/null || return 1
+  # Prevent killing unrelated processes after stale PID reuse. Show process details
+  # only when ps supports this output (some Android releases restrict procfs).
+  if command -v ps >/dev/null 2>&1; then
+    local args
+    args="$(ps -p "$pid" -o args= 2>/dev/null || true)"
+    if [[ -n "$args" && "$args" != *"$2"* ]]; then return 1; fi
+  fi
+  printf '%s' "$pid"
+}
+
+listen_check() {
+  # The Java JAR owns its socket configuration; this CLI cannot force bind-host.
+  # Fail closed if the expected port is seen listening on a wildcard address.
+  if ! command -v ss >/dev/null 2>&1; then
+    say "CẢNH BÁO: không có ss; chưa kiểm chứng bind IP. Hãy cấu hình server chỉ nghe 127.0.0.1."
+    return 0
+  fi
+  local output matching
+  output="$(ss -ltn 2>/dev/null)" || { say "CẢNH BÁO: Android chặn kiểm tra socket; chưa xác nhận localhost."; return 0; }
+  matching="$(printf '%s\n' "$output" | grep -E ":[0]*${NRO_GAME_PORT}[[:space:]]" || true)"
+  if [[ -z "$matching" ]]; then
+    say "CẢNH BÁO: chưa thấy cổng $NRO_GAME_PORT lắng nghe; kiểm tra log và NRO_GAME_PORT."
+    return 0
+  fi
+  if printf '%s\n' "$matching" | grep -Eq '(^|[[:space:]])(0\.0\.0\.0|\*|\[::\]|::):[0]*[0-9]+'; then
+    say "KHÔNG AN TOÀN: phát hiện bind mọi IP trên cổng $NRO_GAME_PORT."
+    return 1
+  fi
+  say "Port $NRO_GAME_PORT hiện hiển thị: $matching"
+  return 0
+}
+
+db_ping() {
+  command -v mariadb-admin >/dev/null 2>&1 || return 1
+  mariadb-admin --protocol=socket --socket="$NRO_DB_SOCKET" ping >/dev/null 2>&1
+}
+
+db_on() {
+  ensure_dirs
+  if db_ping; then say "MariaDB đã chạy (socket $NRO_DB_SOCKET)."; return 0; fi
+  command -v mariadbd >/dev/null 2>&1 || fail "Thiếu mariadb. Chạy: pkg install mariadb"
+  [[ -d "$NRO_DB_DATADIR/mysql" ]] || fail "Chưa khởi tạo DB tại $NRO_DB_DATADIR. Dùng: mariadb-install-db --datadir='$NRO_DB_DATADIR' --auth-root-authentication-method=socket"
+  positive_number "$NRO_DB_PORT" || fail "NRO_DB_PORT không hợp lệ."
+  mkdir -p "$(dirname "$NRO_DB_SOCKET")"
+  (
+    exec mariadbd --no-defaults --datadir="$NRO_DB_DATADIR" \
+      --bind-address=127.0.0.1 --port="$NRO_DB_PORT" \
+      --socket="$NRO_DB_SOCKET" --pid-file="$DB_PID" \
+      --log-error="$DB_LOG"
+  ) >>"$DB_LOG" 2>&1 &
+  local pid=$!
+  printf '%s\n' "$pid" > "$DB_PID"
+  local i
+  for i in 1 2 3 4 5 6 7 8 9 10; do
+    if db_ping; then say "MariaDB local đã chạy tại 127.0.0.1:$NRO_DB_PORT"; return 0; fi
+    if ! kill -0 "$pid" 2>/dev/null; then break; fi
+    sleep 1
+  done
+  fail "MariaDB không khởi động. Xem: $DB_LOG"
+}
+
+db_off() {
+  local pid
+  if pid="$(running_pid "$DB_PID" 'mariadbd')"; then
+    kill "$pid" || fail "Không thể dừng MariaDB."
+    say "Đã gửi lệnh dừng MariaDB PID=$pid."
+    return
+  fi
+  say "Không tìm thấy MariaDB do NRO launcher quản lý; không dừng service khác."
+}
+
+db_import() {
+  [[ $# -ge 1 ]] || fail "Cách dùng: nro_db_import /đường/dẫn/nro.sql"
+  local sql="$1"
+  [[ -s "$sql" && -f "$sql" ]] || fail "Không thấy file SQL: $sql"
+  [[ "$NRO_DB_NAME" =~ ^[a-zA-Z0-9_]+$ ]] || fail "Tên DB không hợp lệ."
+  db_ping || fail "MariaDB chưa chạy. Gõ nro_db_on trước."
+  say "SQL import sẽ tạo/thay dữ liệu của DB '$NRO_DB_NAME'."
+  say "Không tự tải SQL từ Internet; chỉ import file bạn tin cậy."
+  mariadb --protocol=socket --socket="$NRO_DB_SOCKET" -u root \
+    -e "CREATE DATABASE IF NOT EXISTS \`$NRO_DB_NAME\` CHARACTER SET utf8mb4;"
+  mariadb --protocol=socket --socket="$NRO_DB_SOCKET" -u root "$NRO_DB_NAME" < "$sql"
+  say "Đã gửi SQL tới DB '$NRO_DB_NAME'; phải khớp cấu hình trong Server.jar."
+}
+
+on() {
+  ensure_dirs
+  [[ -f "$NRO_JAR" && -s "$NRO_JAR" ]] || fail "Thiếu $NRO_JAR. Hãy tự chép Server.jar vào đây; repo hiện không chứa server."
+  [[ "$NRO_HEAP_MB" =~ ^[0-9]+$ ]] && (( NRO_HEAP_MB >= 128 && NRO_HEAP_MB <= 8192 )) || fail "NRO_HEAP_MB chỉ nhận 128..8192."
+  positive_number "$NRO_GAME_PORT" || fail "NRO_GAME_PORT không hợp lệ."
+  command -v "$NRO_JAVA_BIN" >/dev/null 2>&1 || fail "Không tìm thấy Java. Chạy pkg install openjdk-17."
+  command -v unzip >/dev/null 2>&1 || fail "Thiếu unzip. Chạy pkg install unzip."
+  unzip -t "$NRO_JAR" >/dev/null || fail "Server.jar không hợp lệ hoặc bị hỏng."
+  local existing
+  if existing="$(running_pid "$GAME_PID" "$NRO_JAR")"; then
+    say "NRO server đã chạy (PID $existing). Gõ nro_logs để xem log."
+    return
+  fi
+  if [[ "$NRO_AUTOSTART_DB" == 1 ]]; then db_on; fi
+  local -a args
+  args=("-Xms64m" "-Xmx${NRO_HEAP_MB}m" "-Djava.net.preferIPv4Stack=true")
+  if [[ -n "$NRO_MAIN_CLASS" ]]; then
+    args+=("-cp" "$NRO_JAR" "$NRO_MAIN_CLASS")
+  else
+    if ! unzip -p "$NRO_JAR" META-INF/MANIFEST.MF 2>/dev/null | grep -iq '^Main-Class:'; then
+      fail "JAR không có Main-Class. Đặt NRO_MAIN_CLASS trong $NRO_CONFIG sau khi xác minh class khởi động."
+    fi
+    args+=("-jar" "$NRO_JAR")
+  fi
+  say "Đang chạy server từ $NRO_SERVER_DIR (local test) ..."
+  (
+    cd "$NRO_SERVER_DIR"
+    exec "$NRO_JAVA_BIN" "${args[@]}"
+  ) >>"$GAME_LOG" 2>&1 &
+  local pid=$!
+  printf '%s\n' "$pid" >"$GAME_PID"
+  sleep 2
+  if ! running_pid "$GAME_PID" "$NRO_JAR" >/dev/null; then
+    rm -f "$GAME_PID"
+    say "Server thoát ngay sau khởi động. 40 dòng log cuối:"
+    tail -n 40 "$GAME_LOG" || true
+    fail "Kiểm tra Java, SQL, config và dependency của Server.jar."
+  fi
+  if ! listen_check; then
+    kill "$pid" 2>/dev/null || true
+    rm -f "$GAME_PID"
+    fail "Đã dừng server vì listener lộ ra ngoài localhost. Sửa bind-host trong cấu hình server."
+  fi
+  say "Đã tạo tiến trình server PID=$pid. Log: $GAME_LOG"
+  say "Chưa xác minh server sẵn sàng, DB, login hay IP 127.0.0.1 khi công cụ không kiểm tra được."
+}
+
+off() {
+  local pid
+  if ! pid="$(running_pid "$GAME_PID" "$NRO_JAR")"; then
+    say "NRO server không chạy (hoặc PID cũ); không dừng tiến trình khác."
+    return
+  fi
+  kill "$pid" || fail "Không thể gửi tín hiệu dừng $pid"
+  say "Đã gửi SIGTERM tới NRO PID=$pid."
+}
+
+status() {
+  local pid
+  say "Thư mục: $NRO_SERVER_DIR"
+  say "Server.jar: $([[ -s "$NRO_JAR" ]] && echo 'có' || echo 'THIẾU')"
+  if pid="$(running_pid "$GAME_PID" "$NRO_JAR")"; then
+    say "Java PID: $pid (đang chạy, chưa xác minh game)"
+    listen_check || say "CẢNH BÁO: game port có nguy cơ lộ ra LAN."
+  else
+    say "Java PID: không chạy"
+  fi
+  if db_ping; then say "MariaDB: đang trả lời qua local socket"; else say "MariaDB: chưa sẵn sàng"; fi
+  say "Host mong muốn: 127.0.0.1 | Game port dự kiến: $NRO_GAME_PORT"
+  say "Server thực tế quyết định IP/port; NRO_GAME_PORT chỉ để kiểm tra, không cấu hình JAR."
+}
+
+doctor() {
+  say "NRO Termux local test preflight"
+  say "Config: $NRO_CONFIG"
+  say "Java: $(command -v "$NRO_JAVA_BIN" 2>/dev/null || echo MISSING)"
+  say "MariaDB: $(command -v mariadbd 2>/dev/null || echo MISSING)"
+  say "Game JAR: $([[ -s "$NRO_JAR" ]] && echo "$NRO_JAR" || echo MISSING)"
+  say "SQL: phải import thủ công và cấu hình server cho khớp."
+  say "Chỉ mạng local: cần xác minh bind 127.0.0.1 trong server Java."
+}
+
+help_() {
+  cat <<'HELP'
+Lệnh NRO trên Termux:
+  nro_on             Mở Server.jar (nếu có file)
+  nro_off            Dừng server do launcher mở
+  nro_status         Kiểm tra tiến trình / cổng / MariaDB
+  nro_logs           Xem log server (Ctrl+C để thoát log)
+  nro_db_on          Chạy MariaDB, bind 127.0.0.1
+  nro_db_off         Dừng MariaDB do launcher mở
+  nro_db_import FILE Import SQL do bạn sở hữu
+  nro_doctor         Kiểm tra yêu cầu trước khởi động
+
+Cấu hình: ~/.config/nro-termux/config.env
+Server jar: ~/nro-local/server/Server.jar
+HELP
+}
+
+action="${1:-}"
+case "$(basename "$0")" in
+  nro_on) action=on ;;
+  nro_off) action=off ;;
+  nro_status) action=status ;;
+  nro_logs) action=logs ;;
+  nro_db_on) action=db-on ;;
+  nro_db_off) action=db-off ;;
+  nro_db_import) action=db-import ;;
+  nro_doctor) action=doctor ;;
+esac
+case "$action" in
+  on) on ;;
+  off) off ;;
+  status) status ;;
+  logs) ensure_dirs; touch "$GAME_LOG"; tail -n 60 -f "$GAME_LOG" ;;
+  db-on) db_on ;;
+  db-off) db_off ;;
+  db-import) shift || true; db_import "$@" ;;
+  doctor) doctor ;;
+  help|-h|--help|"") help_ ;;
+  *) help_; fail "Lệnh không hợp lệ: $action" ;;
+esac
