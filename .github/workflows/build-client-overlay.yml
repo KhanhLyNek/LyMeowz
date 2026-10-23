@@ -1,0 +1,40 @@
+name: Build Java8 LyMeowz Client Overlay
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - ClientDev/overlay/**
+      - ClientSRC/SOURCE_SHA256.txt
+      - LyMeowz.jar
+      - .github/workflows/build-client-overlay.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Build bytecode overlay and verify class and resources
+        run: bash ClientDev/overlay/build.sh
+      - name: Display safe class metadata only
+        run: |
+          unzip -t ClientDev/overlay/dist/LyMeowz-ClientDev-Overlay.jar | tail -n 1
+          javap -classpath ClientDev/overlay/dist/LyMeowz-ClientDev-Overlay.jar \
+            -verbose main.GameMidlet | grep -m 1 'major version: 52'
+          sha256sum ClientDev/overlay/dist/LyMeowz-ClientDev-Overlay.jar
+      - name: Publish experimental Java8 overlay artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LyMeowz-ClientDev-Java8-Overlay
+          path: ClientDev/overlay/dist/LyMeowz-ClientDev-Overlay.jar
+          retention-days: 14
+          if-no-files-found: error

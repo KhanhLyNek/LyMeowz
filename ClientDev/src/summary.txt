@@ -1,0 +1,64 @@
+Summary for LyMeowz.jar
+Decompiled with CFR 0.152
+
+
+II
+----------------------------
+
+IIII()
+  Unable to fully structure code
+
+
+Il0O
+----------------------------
+
+IO11()
+  Unable to fully structure code
+
+
+Ilol
+----------------------------
+
+IIl1()
+  Unable to fully structure code
+
+
+I1I1
+----------------------------
+
+III(I_Il )
+  Unable to fully structure code
+
+
+I1I_
+----------------------------
+
+IIll(I_Il )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [0[TRYBLOCK]], but top level block is 6[SWITCH]
+
+
+I1_I
+----------------------------
+
+I_Il()
+  Unable to fully structure code
+II(boolean boolean )
+  Unable to fully structure code
+
+
+I_1o
+----------------------------
+
+IoIl()
+  Unable to fully structure code
+II0_(IO1l )
+  Unable to fully structure code
+IOo()
+  Unable to fully structure code
+
+
+IOoI
+----------------------------
+
+IIlI(java.lang.String )
+  Exception : org.benf.cfr.reader.bytecode.analysis.opgraph.op4rewriters.SwitchStringRewriter$TooOptimisticMatchException

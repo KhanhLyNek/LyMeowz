@@ -1,0 +1,54 @@
+name: Import successful Vineflower recovery artifact
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - .github/workflows/import-vineflower-results.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  import-preserved-artifact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve completed decompilation without rerunning the 9-minute job
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/vineflower-recovery
+          gh run download 39933980715 --repo KhanhLyNek/LyMeowz \
+            --name lymeowz-vineflower-alternative --dir /tmp/vineflower-recovery
+          test -n "$(find /tmp/vineflower-recovery -name decompiler-comparison.md -print -quit)"
+      - name: Import comparison report and one recovery candidate
+        run: |
+          set -euo pipefail
+          report="$(find /tmp/vineflower-recovery -name decompiler-comparison.md -print -quit)"
+          recovered="$(find /tmp/vineflower-recovery -path '*/vineflower-src/I1I1.java' -print -quit)"
+          test -n "$report"
+          mkdir -p ClientDev/reports ClientDev/recovery-vineflower
+          cp "$report" ClientDev/reports/decompiler-comparison.md
+          if [ -n "$recovered" ]; then
+            cp "$recovered" ClientDev/recovery-vineflower/I1I1.java
+          fi
+          test -s ClientDev/reports/decompiler-comparison.md
+          wc -c ClientDev/reports/decompiler-comparison.md
+      - name: Commit results on current branch head safely
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/reports/decompiler-comparison.md
+          if [ -s ClientDev/recovery-vineflower/I1I1.java ]; then
+            git add ClientDev/recovery-vineflower/I1I1.java
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve Vineflower report and alternative class"
+            git fetch origin client-src/workbench
+            git rebase origin/client-src/workbench
+            git push origin HEAD:client-src/workbench
+          fi

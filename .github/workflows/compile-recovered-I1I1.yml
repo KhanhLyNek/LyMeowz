@@ -1,0 +1,66 @@
+name: Compile recovered I1I1 separately
+
+on:
+  push:
+    branches: [client-src/workbench]
+    paths:
+      - .github/workflows/compile-recovered-I1I1.yml
+      - ClientDev/tools/target_compile_report.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  isolated-compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Download Java ME compile stubs
+        run: |
+          mkdir -p /tmp/midp-compile
+          for artifact in cldcapi11 midpapi20; do
+            curl --fail --location --retry 3 --silent --show-error \
+              "https://repo.maven.apache.org/maven2/org/microemu/$artifact/2.0.4/$artifact-2.0.4.jar" \
+              -o "/tmp/midp-compile/$artifact.jar"
+          done
+      - name: Compile CFR and Procyon class with original JAR dependencies
+        run: |
+          mkdir -p /tmp/midp-compile/cfr /tmp/midp-compile/procyon
+          CP="LyMeowz.jar:/tmp/midp-compile/cldcapi11.jar:/tmp/midp-compile/midpapi20.jar"
+          set +e
+          javac --release 8 -Xmaxerrs 500 -encoding UTF-8 -cp "$CP" \
+            -d /tmp/midp-compile/cfr ClientSRC/src/I1I1.java \
+            > /tmp/midp-compile/cfr.log 2>&1
+          echo "$?" > /tmp/midp-compile/cfr.exit
+          javac --release 8 -Xmaxerrs 500 -encoding UTF-8 -cp "$CP" \
+            -d /tmp/midp-compile/procyon ClientDev/recovery-procyon/I1I1.java \
+            > /tmp/midp-compile/procyon.log 2>&1
+          echo "$?" > /tmp/midp-compile/procyon.exit
+          set -e
+      - name: Produce sanitized, actionable comparison report
+        run: |
+          python3 ClientDev/tools/target_compile_report.py \
+            ClientDev/reports/I1I1-compile-comparison.md \
+            'CFR original' /tmp/midp-compile/cfr.log "$(cat /tmp/midp-compile/cfr.exit)" \
+            'Procyon' /tmp/midp-compile/procyon.log "$(cat /tmp/midp-compile/procyon.exit)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: recovered-I1I1-compile-summary
+          path: ClientDev/reports/I1I1-compile-comparison.md
+      - name: Commit report to workbench only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ClientDev/reports/I1I1-compile-comparison.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Document isolated javac errors in CFR vs Procyon I1I1"
+            git fetch origin client-src/workbench
+            git rebase origin/client-src/workbench
+            git push origin HEAD:client-src/workbench
+          fi
