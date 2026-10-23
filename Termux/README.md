@@ -131,7 +131,7 @@ không tự động đổi thành localhost.
 tham khảo từ client**, **không tự động cấu hình socket trong Server.jar**.
 Nếu Java server hard-code `0.0.0.0`, script không thể bắt buộc chỉ
 bind localhost. `nro_on` sẽ dừng tiến trình nếu công cụ `ss` nhìn
-thấy listener wildcard trên cổng dự kiến; nếu Android chặn đọc socket
+thấy listener wildcard trên cổng game hoặc API dự kiến; nếu Android chặn đọc socket
 hoặc port khác, script **không thể chứng minh** server local-only.
 Hãy tự cấu hình `bind-address=127.0.0.1` trong server và kiểm tra
 bằng `ss -ltn`, không kết nối Wi-Fi công cộng khi chưa xác minh.
