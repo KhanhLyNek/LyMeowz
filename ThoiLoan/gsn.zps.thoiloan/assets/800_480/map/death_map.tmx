@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="44" height="44" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="deathcell" tilewidth="152" tileheight="114">
+  <image source="deathcell.png" width="152" height="114"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="44" height="44">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WQRKAMAgD7f8/7VmmjhAgoMJFOzYJXQ/lOK61nGtZXr3G01teP+RMw9mvfyvniH9j8WfohzOmt3oMZ47HcNbt9/bE5qypbpx3muFs9999j56bsjkjVc1Z08NwjvHvzpnRg7cq7uK/cmbcMxa/L3LWeHbifJfdjTMy/1ZzRjwrepDa4Zx/tyOebM5IRjVnJMO7PyK/O+eMOS2bM5LBnuGRiu4pIr87Z838+5Rh3c+YLbtwXuIdydDqIs8kszs/T+XPjwBAHgAA
+  </data>
+ </layer>
+</map>

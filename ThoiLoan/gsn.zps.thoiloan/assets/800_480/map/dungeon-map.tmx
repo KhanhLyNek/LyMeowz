@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="44" height="44" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="dungeoncell" tilewidth="76" tileheight="57">
+  <image source="dungeoncell.png" width="152" height="171"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="44" height="44">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2SyQ3AIACAtNf+I+sWYMODMADMMca1mYf43jwH+d18B5nu2w8u0337wWW6bz+4TPftB5fpvv3gMt23H1ym+/aDy3TffnCZ7tsPLtN9+8Flum8/uEz37QeX6b794DLd9+8/LDws5z9AHgAA
+  </data>
+ </layer>
+</map>

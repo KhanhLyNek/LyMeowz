@@ -1,0 +1,16 @@
+{
+	"ITB_1": {
+		"buffDamage": 100,
+		"buffMoveSpeed": 100,
+		"buffAttkSpeed": 100,
+		"buffHp": 500,
+		"time": 0
+	},
+	"ITB_2": {
+		"buffDamage": 200,
+		"buffMoveSpeed": 0,
+		"buffAttkSpeed": 0,
+		"buffHp": 250,
+		"time": 0
+	}
+}

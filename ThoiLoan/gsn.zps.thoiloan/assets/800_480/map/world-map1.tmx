@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="44" height="44" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="3_0003_Layer-7-copy-2" tilewidth="76" tileheight="57">
+  <image source="3_0003_Layer-7-copy-2.png" width="279" height="279"/>
+ </tileset>
+ <layer name="Tile Layer" width="44" height="44">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC9WZi66DIBBE10vxAf3/7+01HdLpBpXWRKYkZLTT3QCerAbMzPJ/H+zZInSBJugfdIRO0Ay9Ij6hB/x2g87Qe2Ouq+JHO573Ua6r49emzADHz6bPgI9fmzoDJT6ZPgM+fm3qDCTy1Rnwc2nJ1ZuBQL46A34ue7lUGIjkqzPg51LLpcbARL46A34unEuVgTv56gz4tWj5b28GAvnqDHxSf1UYiOSrM9BSf9UYmMhXZ2Cv/qoyUKu/qgxk57eMpTcDA+kvMMD+3lhUGBhJ1Rmo7T+oMzCTqjNQ239QZyCRqjNQ239QZ6Dkb6m/vRmoff+qM1Dy79VfFQZq37/qDJT8tfrbk4HQkJ+vezLA3lZ+rr89Gah5W2vF198+o7N1IGx4fq2CnX9GZ+sA++zxO2Jtke4z7hf0cu5p9r42E8abMd4BPW7El/dRRPyC+HQQX85ey3nmzV619wHFD4RpQB4AAA==
+  </data>
+ </layer>
+</map>

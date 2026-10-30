@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="4" height="4" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="gird" tilewidth="76" tileheight="57">
+  <image source="D:/Downloads/Compressed/MAP/MAP/gird.png" width="76" height="114"/>
+ </tileset>
+ <tileset firstgid="3" name="1" tilewidth="76" tileheight="57">
+  <image source="D:/Downloads/Compressed/MAP/MAP/1.png" width="1076" height="765"/>
+ </tileset>
+ <layer name="regions" width="4" height="4">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgwA6YcbDRAQCZ1O9dQAAAAA==
+  </data>
+ </layer>
+ <layer name="output_bg2" width="4" height="4">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgwA4YcbDRAQBsDHzbQAAAAA==
+  </data>
+ </layer>
+ <layer name="input_bg1" width="4" height="4">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgwA6YcbDRAQCZ1O9dQAAAAA==
+  </data>
+ </layer>
+</map>

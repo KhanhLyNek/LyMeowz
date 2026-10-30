@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="40" height="40" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="nen dat" tilewidth="76" tileheight="171">
+  <tileoffset x="0" y="29"/>
+  <image source="nen dat.png" width="152" height="171"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TQQ7AIAhE0fb+l+4JQFMrPpL+jQkbyQz/unxu/M12FuajfbX5yb+z/CKEXWdv889vPM8Q/JW7HiHeX4Tgr9B1h/xWEfwVun6LeH8Rgr+VXXfIbxeCv9Vef4l4fxGCvzu67pBfNYK/u7yuQLy/CMHfla475Kcg+Lvq9UnE+4sQ/J3pukN+Mqe7zN4HL//KLwAZAAA=
+  </data>
+ </layer>
+</map>

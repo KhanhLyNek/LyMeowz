@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="44" height="44" tilewidth="76" tileheight="57">
+ <tileset firstgid="1" name="islandcell" tilewidth="76" tileheight="57">
+  <image source="islandcell.png" width="152" height="114"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="44" height="44">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VOw6EMAwFveze/8wUUGxhCyf4M5FCE02UWHqjB4iIfOV6jnsd5c+9/go4aubbzF6OnFnhOXpmtueMmSv0t8pzxsxMz9nvyAr9zfRc8Y3XMhD7m+G58l+qZSD2N9JzldcozzN3Oj1Xe33reeZOp+cur7OePWdInru9jnr2nCF5pnj1etb2KLxCf588a3s0XqG/luf/HN0ePZ67vY2yloPMFG9etnJQmeJt95fBVg4qU7zt/jLYykFlirfdXwZbOahM8eblE3a8Pd5AHgAA
+  </data>
+ </layer>
+</map>

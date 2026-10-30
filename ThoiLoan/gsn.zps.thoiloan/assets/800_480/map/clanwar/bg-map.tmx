@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="23" height="14" tilewidth="36" tileheight="36">
+ <tileset firstgid="1" name="clan_war_cell" tilewidth="36" tileheight="36">
+  <image source="clan_war_cell.png" width="73" height="73"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="23" height="14">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgAmJGGtDMQMxCI5oW7h1196i7R909Mt0NAIsrk2gIBQAA
+  </data>
+ </layer>
+</map>
