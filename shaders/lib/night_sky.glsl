@@ -52,7 +52,7 @@ vec3 ns_star_field(vec2 coord, float threshold) {
 
 // dir: direction in the (rotating) celestial frame, nightAmount: 0 = day, 1 = night
 vec3 ns_stars(vec3 dir, float galaxyLuminance, float nightAmount) {
-	float threshold = 1.0 - 0.05 * NS_STARS_COVERAGE * nightAmount - 0.5 * ns_cube(galaxyLuminance);
+	float threshold = 1.0 - NS_STARS_COVERAGE * (0.05 * nightAmount + 0.5 * ns_cube(galaxyLuminance));
 
 	vec2 coord = dir.xy / (abs(dir.z) + length(dir.xy)) + 41.21 * sign(dir.z);
 	coord *= 600.0;
