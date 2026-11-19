@@ -1,47 +1,75 @@
-License, as stated by Chocapic13:
-Sharing a modified version of my shaders:
+# LyMeowz Shader License
 
-    You are not allowed to claim any of the code included in "Chocapic13' shaders" as your own
+## 1. Ownership and Copyright
 
-    You can share a modified version of my shaders if you respect the following title scheme : " -Name of the shaderpack- (Chocapic13' Shaders edit) "
+All original code, modifications, visual effects, features, and materials created by **LyMeowz** are the intellectual property of LyMeowz.
 
-    You cannot use any monetizing links (for example adfoc.us ; adf.ly)
+You are not allowed to claim any original work created by LyMeowz as your own.
 
-    The rules of modification and sharing have to be same as the one here (copy paste all these rules in your post and change depending if you allow modification or not), you cannot make your own rules, you can only choose if you allow redistribution.
+LyMeowz retains ownership and copyright over all original contributions made to this shaderpack.
 
-    I have to be clearly credited
+Third-party code and assets remain the property of their respective authors and are subject to their original licenses.
 
-    You cannot use any version older than "Chocapic13' Shaders V4" as a base, however you can modify older versions for personal use
+## 2. Modification and Redistribution
 
-Common sense : if you want a feature from another shaderpack or want to use a piece of code found on the web, make sure the code is open source. In doubt ask the creator.
+You are allowed to modify, improve, and redistribute this shaderpack, provided that you comply with the following conditions:
 
-Common sense #2 : share your modification only if you think it adds something really useful to the shaderpack(not only 2-3 constants changed)
-Special level of permission; with written permission from Chocapic13, on request if you think your shaderpack is an huge modification from the original:
+- You must clearly credit **LyMeowz** as the original creator of the LyMeowz shaderpack and its original contributions.
+- Modified versions must retain appropriate copyright notices.
+- You may distribute modified versions under your own project name, provided that you do not imply that you created the original work.
+- You must respect all applicable third-party licenses.
+- You may not remove or misrepresent the original authorship of LyMeowz's contributions.
 
-    Allows to use monetizing links
+## 3. Monetization
 
-    Allows to create your own sharing rules
+You are allowed to monetize your own modifications and distributions, provided that:
 
-    Shaderpack name can be chosen
+- You clearly credit LyMeowz.
+- You do not falsely claim ownership of the original work.
+- You comply with third-party licenses.
+- You do not use monetization methods that violate applicable laws or platform policies.
 
-    Listed on Chocapic13' shaders official thread
+## 4. Special Permission
 
-    Chocapic13 still have to be clearly credited
+With explicit written permission from LyMeowz, additional permissions may be granted, including:
 
-Using this shaderpack in a video or a picture:
+- Permission to use alternative shaderpack naming schemes.
+- Permission to establish additional redistribution conditions.
+- Permission to publish major modifications under an independent project identity.
+- Official recognition or listing on LyMeowz's platforms.
 
-    You are allowed to use this shaderpack for screenshots and videos if you give the shaderpack name in the description/message
+LyMeowz must still be clearly credited for the original contributions.
 
-    You are allowed to use this shaderpack in monetized videos if you respect the rule above.
+## 5. Using This Shaderpack in Videos and Screenshots
 
-Minecraft websites:
+You are allowed to use this shaderpack in screenshots, videos, livestreams, and other visual content.
 
-    The download link must redirect to the download link given in the shaderpack's official thread
+You are allowed to monetize videos and other content featuring this shaderpack.
 
-    There has to be a link to the shaderpack's official thread
+You are encouraged to credit **LyMeowz** and include the shaderpack's official download or project page.
 
-    You are not allowed to add any monetizing link to the shaderpack download
+## 6. Minecraft Websites and Distribution Platforms
 
-If you are not sure about what you are allowed to do or not, PM Chocapic13 on http://www.minecraftforum.net/.
+Websites and distribution platforms may share this shaderpack under the following conditions:
 
-Not respecting these rules can and will result in a request of thread/download shutdown to the host/administrator, with or without warning. Intellectual property stealing is punished by law.
+- The download link must lead to an authorized download source.
+- A link to the official LyMeowz project page must be provided when available.
+- You must not falsely represent yourself as the original creator.
+- You must preserve the applicable copyright and license notices.
+- Third-party licensing requirements must be respected.
+
+## 7. Intellectual Property Protection
+
+Unauthorized claims of authorship, removal of copyright notices, or misrepresentation of LyMeowz's original work are prohibited.
+
+Failure to comply with these terms may result in a request to remove or suspend unauthorized distributions, subject to applicable law and platform policies.
+
+## 8. Contact
+
+If you have questions about permissions, redistribution, licensing, or collaboration, contact **LyMeowz** through the official project channels.
+
+---
+
+**Copyright © LyMeowz. All rights reserved.**
+
+Original work, contributions, and modifications created by LyMeowz remain the intellectual property of LyMeowz, subject to applicable third-party licenses.
