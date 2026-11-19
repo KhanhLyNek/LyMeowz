@@ -41,3 +41,7 @@ Temporal credits entry to people who added more mod support to LyMeowz:
 	MikiP98 / https://github.com/MikiP98 | Miki-Liki (Modrinth)
 	Benjamin Rühl / https://github.com/benruehl
 	ludo_silver (discord)
+
+Water wave style and water color values are inspired by, and adapted from:
+
+	Sonic Ether (Cody Darr) / Sonic Ether's Unbelievable Shaders (SEUS) / http://www.sonicether.com
