@@ -1,0 +1,888 @@
+profile.SHADER_VERSION_LABEL = LyMeowz V2.1.2
+profile.OLD_LYMEOWZ_TONEMAP = LyMeowz V2.1.2 + xử lý màu v2.0.4
+
+# Bản dịch tiếng Việt. Một số dòng trong file gốc là đùa và không làm đúng như tên gọi.
+profile.QUALITY = Chất lượng
+profile.PERFORMANCE = Hiệu năng
+
+screen.Misc_Settings = §cGỡ lỗi§r / Cài đặt thử nghiệm
+screen.Sun_and_Moon_Colors = Màu Mặt Trời / Mặt Trăng
+option.sunPathRotation = Góc Mặt Trời
+option.sun_illuminance = Độ sáng Mặt Trời
+option.moon_illuminance = Độ sáng Mặt Trăng
+option.MOONPHASE_BASED_MOONLIGHT = Độ sáng theo tuần trăng
+
+screen.Mod_support = Cài đặt cho mod được hỗ trợ
+
+option.RESOURCEPACK_SKY = Bầu trời của gói tài nguyên
+    value.RESOURCEPACK_SKY.0 = Không dùng
+    value.RESOURCEPACK_SKY.1 = Bầu trời gói + Mặt Trời/Trăng của shader
+    value.RESOURCEPACK_SKY.2 = Toàn bộ bầu trời gói
+    value.RESOURCEPACK_SKY.3 = Bầu trời shader + Mặt Trời/Trăng của gói
+
+screen.Waving_Stuff = Hiệu ứng lay động
+    option.WAVY_PLANTS = Cây cối lay động
+    option.WAVY_STRENGTH = Cường độ lay động
+    option.WAVY_SPEED = Tốc độ lay động
+
+screen.Direct_Light = Ánh sáng trực tiếp
+    screen.Shadows = Bóng đổ
+        option.TRANSLUCENT_COLORED_SHADOWS = Bóng đổ có màu
+        option.SCREENSPACE_CONTACT_SHADOWS = Bóng đổ không gian màn hình
+        option.RENDER_ENTITY_SHADOWS = Bóng đổ cho thực thể
+        option.RENDER_PLAYER_SHADOWS = Bóng đổ cho người chơi
+        option.shadowMapResolution = Độ phân giải bóng
+        option.shadowDistance = Khoảng cách bóng
+            value.shadowDistance.32.0 = 2 chunk
+            value.shadowDistance.48.0 = 3 chunk
+            value.shadowDistance.64.0 = 4 chunk
+            value.shadowDistance.80.0 = 5 chunk
+            value.shadowDistance.96.0 = 6 chunk
+            value.shadowDistance.112.0 = 7 chunk
+            value.shadowDistance.128.0 = 8 chunk
+            value.shadowDistance.144.0 = 9 chunk
+            value.shadowDistance.160.0 = 10 chunk
+            value.shadowDistance.176.0 = 11 chunk
+            value.shadowDistance.192.0 = 12 chunk
+            value.shadowDistance.208.0 = 13 chunk
+            value.shadowDistance.224.0 = 14 chunk
+            value.shadowDistance.240.0 = 15 chunk
+            value.shadowDistance.256.0 = 16 chunk
+            value.shadowDistance.272.0 = 17 chunk
+            value.shadowDistance.288.0 = 18 chunk
+            value.shadowDistance.304.0 = 19 chunk
+            value.shadowDistance.320.0 = 20 chunk
+            value.shadowDistance.336.0 = 21 chunk
+            value.shadowDistance.352.0 = 22 chunk
+            value.shadowDistance.368.0 = 23 chunk
+            value.shadowDistance.384.0 = 24 chunk
+            value.shadowDistance.512.0 = 32 chunk
+            value.shadowDistance.768.0 = 48 chunk
+            value.shadowDistance.1024.0 = 64 chunk
+            value.shadowDistance.1536.0 = 96 chunk
+            value.shadowDistance.2048.0 = 128 chunk
+            value.shadowDistance.4096.0 = 256 chunk
+            value.shadowDistance.8192.0 = 512 chunk
+
+        option.OPTIMIZED_SHADOW_DISTANCE = Phạm vi bóng tối đa
+            value.OPTIMIZED_SHADOW_DISTANCE.-1.0 = Không tối ưu
+            value.OPTIMIZED_SHADOW_DISTANCE.1.0 = Đã tối ưu
+        option.entityShadowDistanceMul = Khoảng cách bóng thực thể
+            value.entityShadowDistanceMul.0.01 = 1% khoảng cách bóng
+            value.entityShadowDistanceMul.0.02 = 2% khoảng cách bóng
+            value.entityShadowDistanceMul.0.03 = 3% khoảng cách bóng
+            value.entityShadowDistanceMul.0.04 = 4% khoảng cách bóng
+            value.entityShadowDistanceMul.0.05 = 5% khoảng cách bóng
+            value.entityShadowDistanceMul.0.10 = 10% khoảng cách bóng
+            value.entityShadowDistanceMul.0.15 = 15% khoảng cách bóng
+            value.entityShadowDistanceMul.0.20 = 20% khoảng cách bóng
+            value.entityShadowDistanceMul.0.25 = 25% khoảng cách bóng
+            value.entityShadowDistanceMul.0.30 = 30% khoảng cách bóng
+            value.entityShadowDistanceMul.0.35 = 35% khoảng cách bóng
+            value.entityShadowDistanceMul.0.40 = 40% khoảng cách bóng
+            value.entityShadowDistanceMul.0.45 = 45% khoảng cách bóng
+            value.entityShadowDistanceMul.0.50 = 50% khoảng cách bóng
+            value.entityShadowDistanceMul.0.75 = 75% khoảng cách bóng
+            value.entityShadowDistanceMul.1.00 = 100% khoảng cách bóng
+
+    screen.Filtering = Bộ lọc bóng đổ
+        option.SHADOW_FILTER_SAMPLE_COUNT = Số mẫu bộ lọc bóng cơ bản
+        option.Min_Shadow_Filter_Radius = Bán kính lọc bóng tối thiểu
+        option.Variable_Penumbra_Shadows = Bóng bán dạ biến thiên
+        option.VPS_Search_Samples = Số mẫu bộ lọc VPS
+        option.Max_Shadow_Filter_Radius = Bán kính lọc bóng tối đa
+        option.Max_Filter_Depth = Hệ số kích thước Mặt Trời
+        
+    screen.LPV = FloodFill (ánh sáng màu) - §cCẦN IRIS§r
+        option.LPV_ENABLED = Bật
+        option.LPV_SIZE = Kích thước
+            value.LPV_SIZE.6 = Nhỏ [64]
+            value.LPV_SIZE.7 = Vừa [128]
+            value.LPV_SIZE.8 = Lớn [256]
+        option.LPV_SATURATION = Độ bão hòa ánh sáng
+            suffix.LPV_SATURATION = %
+        option.LPV_TINT_SATURATION = Độ bão hòa màu nhuộm
+            suffix.LPV_TINT_SATURATION = %
+        option.LPV_NORMAL_STRENGTH = Cường độ pháp tuyến
+            suffix.LPV_NORMAL_STRENGTH = %
+            value.LPV_NORMAL_STRENGTH.0 = TẮT
+        option.LPV_ENTITY_LIGHTS = Ánh sáng từ thực thể
+        option.LPV_REDSTONE_LIGHTS = Ánh sáng Redstone
+        option.LPV_COLORED_CANDLES = Nến có màu
+        option.LPV_NOSHADOW_HACK = Bản vá cho Iris <= 1.7.0
+        option.LPV_VL_FOG_ILLUMINATION = Lan truyền ánh sáng vào sương mù
+        option.LPV_VL_FOG_ILLUMINATION_BRIGHTNESS = Độ sáng ánh sáng lan vào sương mù
+            suffix.LPV_VL_FOG_ILLUMINATION_BRIGHTNESS = %
+
+screen.Subsurface_Scattering = Tán xạ dưới bề mặt (SSS)
+    option.LabSSS_Curve = Đường cong LabSSS
+    option.MISC_BLOCK_SSS = SSS cho các khối ngẫu nhiên
+    option.MOB_SSS = SSS cho sinh vật
+    option.Ambient_SSS = SSS từ bầu trời
+    option.ambientsss_brightness = Độ sáng SSS từ bầu trời
+    option.SSS_TYPE = Chế độ
+        value.SSS_TYPE.0 = Không có
+        value.SSS_TYPE.1 = Chỉ cài sẵn
+        value.SSS_TYPE.2 = Cài sẵn + LabSSS
+        value.SSS_TYPE.3 = Chỉ LabSSS
+
+
+screen.Ambient_light = Ánh sáng môi trường
+    option.AO_Strength = Hệ số AO (che khuất)
+    option.GI_Strength = Hệ số GI (chiếu sáng toàn cục)
+    option.HQ_SSGI = Dò tia tầm xa (SSRT)
+    option.UseQuarterResDepth = Lấy mẫu độ sâu 1/4 độ phân giải (SSRT)
+    option.Hand_Held_lights = Ánh sáng vật cầm tay
+    option.SKY_CONTRIBUTION_IN_SSRT = Ánh sáng môi trường chất lượng cao (SSRT)
+    option.ambientOcclusionLevel = Lượng AO của Minecraft gốc
+    option.ambient_brightness = Độ sáng ánh sáng môi trường
+    option.MIN_LIGHT_AMOUNT = Độ sáng tối thiểu
+    option.indirect_effect = Chiếu sáng gián tiếp
+        value.indirect_effect.0 = AO của Minecraft gốc
+            value.indirect_effect.1 = SSAO
+            value.indirect_effect.2 = GTAO
+            value.indirect_effect.3 = SSRT (chỉ AO) - §cRẤT NHIỀU NHIỄU HÌNH§r
+            value.indirect_effect.4 = SSRT (AO + GI) - §cRẤT NHIỀU NHIỄU HÌNH§r
+
+    screen.Ambient_Colors = Màu ánh sáng môi trường
+        option.AmbientLight_R = Lượng đỏ
+        option.AmbientLight_G = Lượng lục
+        option.AmbientLight_B = Lượng lam
+        option.ambient_colortype = Kiểu pha màu
+            value.ambient_colortype.0 = Nhiệt độ màu
+            value.ambient_colortype.1 = RGB
+    
+    screen.Torch_Colors = Màu đuốc
+        option.TORCH_AMOUNT = Hệ số ánh sáng đuốc
+        option.TORCH_R = Lượng đỏ
+        option.TORCH_G = Lượng lục
+        option.TORCH_B = Lượng lam
+    
+
+screen.Fog = Sương mù
+    option.VL_RENDER_RESOLUTION = Tỉ lệ độ phân giải sương mù
+    option.VL_SAMPLES = Số mẫu sương mù
+    option.BLOOMY_FOG = Hệ số bloom cho sương mù
+    option.Haze_amount = Mật độ khói mù khí quyển
+    option.RainFog_amount = Hệ số sương mù khi mưa
+    option.RAYMARCH_CLOUDS_WITH_FOG = Vẽ mây như sương mù §c(ĐỌC MÔ TẢ)§r
+    option.BorderFog = Sương mù viền chunk
+
+    screen.TOD_fog = Sương mù theo thời gian trong ngày
+        option.TOD_Fog_mult = Hệ số mật độ sương mù
+        option.Morning_Uniform_Fog = Mật độ sương mù buổi sáng
+        option.Noon_Uniform_Fog = Mật độ sương mù buổi trưa
+        option.Evening_Uniform_Fog = Mật độ sương mù buổi chiều
+        option.Night_Uniform_Fog = Mật độ sương mù ban đêm
+        option.Morning_Cloudy_Fog = Mật độ sương mù sáng sớm (nhiều mây)
+        option.Noon_Cloudy_Fog = Mật độ sương mù trưa (nhiều mây)
+        option.Evening_Cloudy_Fog = Mật độ sương mù chiều (nhiều mây)
+        option.Night_Cloudy_Fog = Mật độ sương mù đêm (nhiều mây)
+
+        option.PER_BIOME_ENVIRONMENT = Môi trường theo quần xã
+
+    screen.Cave_Fog = Sương mù hang động
+        option.Cave_Fog = Sương mù hang động
+        option.CaveFogFallOff = Độ tan dần của sương
+        option.CaveFogColor_R = Sương mù - đỏ
+        option.CaveFogColor_G = Sương mù - lục
+        option.CaveFogColor_B = Sương mù - lam
+
+    screen.END_AND_NETHER_FOG = Sương mù Nether / End
+        option.END_STORM_DENSTIY = Mật độ bão End
+        option.NETHER_PLUME_DENSITY = Mật độ khói Nether
+
+screen.Clouds = Mây
+    option.VOLUMETRIC_CLOUDS = Mây thể tích
+    option.CLOUDS_QUALITY = Tỉ lệ độ phân giải mây
+    option.CLOUDS_SHADOWS = Bóng của mây
+    option.Cloud_Speed = Hệ số tốc độ mây
+    option.Rain_coverage = Độ phủ mây khi mưa
+    option.Daily_Weather = Thời tiết theo ngày
+
+    option.CloudLayer0 = Mây tích nhỏ
+    option.CloudLayer0_coverage = Độ phủ
+    option.CloudLayer0_density = Mật độ
+    option.CloudLayer0_height = Độ cao
+
+    option.CloudLayer1 = Mây tích lớn
+    option.CloudLayer1_coverage = Độ phủ
+    option.CloudLayer1_density = Mật độ
+    option.CloudLayer1_height = Độ cao
+
+    option.CloudLayer2 = Mây trung tầng
+    option.CloudLayer2_coverage = Độ phủ
+    option.CloudLayer2_density = Mật độ
+    option.CloudLayer2_height = Độ cao
+
+screen.DAILY_WEATHER = Cài đặt thời tiết theo ngày
+option.CHOOSE_RANDOM_WEATHER_PROFILE = Chọn thời tiết ngẫu nhiên
+    screen.DAY0_WEATHER = Thời tiết ngày 0
+        option.DAY0_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY0_l0_density = Mật độ mây tích nhỏ
+        option.DAY0_l1_coverage = Độ phủ mây tích lớn
+        option.DAY0_l1_density = Mật độ mây tích lớn
+        option.DAY0_l2_coverage = Độ phủ mây trung tầng
+        option.DAY0_l2_density = Mật độ mây trung tầng
+        option.DAY0_ufog_density = Mật độ sương mù đều
+        option.DAY0_cfog_density = Mật độ sương mù khi nhiều mây
+        
+    screen.DAY1_WEATHER = Thời tiết ngày 1
+        option.DAY1_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY1_l0_density = Mật độ mây tích nhỏ
+        option.DAY1_l1_coverage = Độ phủ mây tích lớn
+        option.DAY1_l1_density = Mật độ mây tích lớn
+        option.DAY1_l2_coverage = Độ phủ mây trung tầng
+        option.DAY1_l2_density = Mật độ mây trung tầng
+        option.DAY1_ufog_density = Mật độ sương mù đều
+        option.DAY1_cfog_density = Mật độ sương mù khi nhiều mây
+        
+    screen.DAY2_WEATHER = Thời tiết ngày 2
+        option.DAY2_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY2_l0_density = Mật độ mây tích nhỏ
+        option.DAY2_l1_coverage = Độ phủ mây tích lớn
+        option.DAY2_l1_density = Mật độ mây tích lớn
+        option.DAY2_l2_coverage = Độ phủ mây trung tầng
+        option.DAY2_l2_density = Mật độ mây trung tầng
+        option.DAY2_ufog_density = Mật độ sương mù đều
+        option.DAY2_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY3_WEATHER = Thời tiết ngày 3
+        option.DAY3_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY3_l0_density = Mật độ mây tích nhỏ
+        option.DAY3_l1_coverage = Độ phủ mây tích lớn
+        option.DAY3_l1_density = Mật độ mây tích lớn
+        option.DAY3_l2_coverage = Độ phủ mây trung tầng
+        option.DAY3_l2_density = Mật độ mây trung tầng
+        option.DAY3_ufog_density = Mật độ sương mù đều
+        option.DAY3_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY4_WEATHER = Thời tiết ngày 4
+        option.DAY4_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY4_l0_density = Mật độ mây tích nhỏ
+        option.DAY4_l1_coverage = Độ phủ mây tích lớn
+        option.DAY4_l1_density = Mật độ mây tích lớn
+        option.DAY4_l2_coverage = Độ phủ mây trung tầng
+        option.DAY4_l2_density = Mật độ mây trung tầng
+        option.DAY4_ufog_density = Mật độ sương mù đều
+        option.DAY4_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY5_WEATHER = Thời tiết ngày 5
+        option.DAY5_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY5_l0_density = Mật độ mây tích nhỏ
+        option.DAY5_l1_coverage = Độ phủ mây tích lớn
+        option.DAY5_l1_density = Mật độ mây tích lớn
+        option.DAY5_l2_coverage = Độ phủ mây trung tầng
+        option.DAY5_l2_density = Mật độ mây trung tầng
+        option.DAY5_ufog_density = Mật độ sương mù đều
+        option.DAY5_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY6_WEATHER = Thời tiết ngày 6
+        option.DAY6_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY6_l0_density = Mật độ mây tích nhỏ
+        option.DAY6_l1_coverage = Độ phủ mây tích lớn
+        option.DAY6_l1_density = Mật độ mây tích lớn
+        option.DAY6_l2_coverage = Độ phủ mây trung tầng
+        option.DAY6_l2_density = Mật độ mây trung tầng
+        option.DAY6_ufog_density = Mật độ sương mù đều
+        option.DAY6_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY7_WEATHER = Thời tiết ngày 7
+        option.DAY7_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY7_l0_density = Mật độ mây tích nhỏ
+        option.DAY7_l1_coverage = Độ phủ mây tích lớn
+        option.DAY7_l1_density = Mật độ mây tích lớn
+        option.DAY7_l2_coverage = Độ phủ mây trung tầng
+        option.DAY7_l2_density = Mật độ mây trung tầng
+        option.DAY7_ufog_density = Mật độ sương mù đều
+        option.DAY7_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY8_WEATHER = Thời tiết ngày 8
+        option.DAY8_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY8_l0_density = Mật độ mây tích nhỏ
+        option.DAY8_l1_coverage = Độ phủ mây tích lớn
+        option.DAY8_l1_density = Mật độ mây tích lớn
+        option.DAY8_l2_coverage = Độ phủ mây trung tầng
+        option.DAY8_l2_density = Mật độ mây trung tầng
+        option.DAY8_ufog_density = Mật độ sương mù đều
+        option.DAY8_cfog_density = Mật độ sương mù khi nhiều mây
+
+    screen.DAY9_WEATHER = Thời tiết ngày 9
+        option.DAY9_l0_coverage = Độ phủ mây tích nhỏ
+        option.DAY9_l0_density = Mật độ mây tích nhỏ
+        option.DAY9_l1_coverage = Độ phủ mây tích lớn
+        option.DAY9_l1_density = Mật độ mây tích lớn
+        option.DAY9_l2_coverage = Độ phủ mây trung tầng
+        option.DAY9_l2_density = Mật độ mây trung tầng
+        option.DAY9_ufog_density = Mật độ sương mù đều
+        option.DAY9_cfog_density = Mật độ sương mù khi nhiều mây
+        
+
+screen.Climate = Khí hậu
+    option.Seasons = Màu theo mùa
+    option.Season_Length = Độ dài mỗi mùa (ngày)
+	option.Start_Season = Mùa bắt đầu
+		value.Start_Season.0 = Hè (mặc định)
+		value.Start_Season.1 = Thu
+		value.Start_Season.2 = Đông
+		value.Start_Season.3 = Xuân
+    option.Snowy_Winter = Có tuyết vào mùa đông
+    screen.Summer_colors = Màu mùa hè
+        option.Summer_R = Lượng đỏ
+        option.Summer_G = Lượng lục
+        option.Summer_B = Lượng lam
+        option.Summer_Leaf_R = Lượng đỏ (lá cây)
+        option.Summer_Leaf_G = Lượng lục (lá cây)
+        option.Summer_Leaf_B = Lượng lam (lá cây)
+
+    screen.Fall_colors = Màu mùa thu
+        option.Fall_R = Lượng đỏ
+        option.Fall_G = Lượng lục
+        option.Fall_B = Lượng lam
+        option.Fall_Leaf_R = Lượng đỏ (lá cây)
+        option.Fall_Leaf_G = Lượng lục (lá cây)
+        option.Fall_Leaf_B = Lượng lam (lá cây)
+
+    screen.Winter_colors = Màu mùa đông
+        option.Winter_R = Lượng đỏ
+        option.Winter_G = Lượng lục
+        option.Winter_B = Lượng lam
+        option.Winter_Leaf_R = Lượng đỏ (lá cây)
+        option.Winter_Leaf_G = Lượng lục (lá cây)
+        option.Winter_Leaf_B = Lượng lam (lá cây)
+
+    screen.Spring_colors = Màu mùa xuân
+        option.Spring_R = Lượng đỏ
+        option.Spring_G = Lượng lục
+        option.Spring_B = Lượng lam
+        option.Spring_Leaf_R = Lượng đỏ (lá cây)
+        option.Spring_Leaf_G = Lượng lục (lá cây)
+        option.Spring_Leaf_B = Lượng lam (lá cây)
+        
+    screen.SWAMP = Đầm lầy
+        option.SWAMP_ENV = Môi trường đầm lầy
+        option.SWAMP_UNIFORM_DENSITY = Mật độ sương mù đều
+        option.SWAMP_CLOUDY_DENSITY = Mật độ sương mù khi nhiều mây
+        option.SWAMP_R = Lượng đỏ
+        option.SWAMP_G = Lượng lục
+        option.SWAMP_B = Lượng lam
+
+    screen.JUNGLE = Rừng nhiệt đới
+        option.JUNGLE_ENV = Môi trường rừng nhiệt đới
+        option.JUNGLE_UNIFORM_DENSITY = Mật độ sương mù đều
+        option.JUNGLE_CLOUDY_DENSITY = Mật độ sương mù khi nhiều mây
+        option.JUNGLE_R = Lượng đỏ
+        option.JUNGLE_G = Lượng lục
+        option.JUNGLE_B = Lượng lam
+
+    screen.DARKFOREST = Rừng tối
+        option.DARKFOREST_ENV = Môi trường rừng tối
+        option.DARKFOREST_UNIFORM_DENSITY = Mật độ sương mù đều
+        option.DARKFOREST_CLOUDY_DENSITY = Mật độ sương mù khi nhiều mây
+        option.DARKFOREST_R = Lượng đỏ
+        option.DARKFOREST_G = Lượng lục
+        option.DARKFOREST_B = Lượng lam
+
+screen.World = Thế giới & môi trường
+    screen.Water = Nước
+        option.WATER_REFLECTIONS = Phản chiếu gương cho nước
+        option.SCREENSPACE_REFLECTIONS = Phản chiếu không gian màn hình (SSR)
+        option.SSR_STEPS = Chất lượng SSR
+        option.WATER_SUN_SPECULAR = Phản chiếu Mặt Trời / Mặt Trăng
+        option.WATER_BACKGROUND_SPECULAR = Phản chiếu bầu trời / sương mù
+        option.Refraction = Khúc xạ trong nước / kính
+        option.Dirt_Amount = Độ đục của nước
+        option.Water_Top_Layer = Tọa độ Y của đại dương
+        option.WATER_WAVE_STRENGTH = Cường độ sóng
+        option.SNELLS_WINDOW = Cửa sổ Snell
+        
+        screen.Water_fog_color = Màu sương mù trong nước
+            option.Dirt_Scatter_R = Tán xạ đỏ (cặn bẩn)
+            option.Dirt_Scatter_G = Tán xạ lục (cặn bẩn)
+            option.Dirt_Scatter_B = Tán xạ lam (cặn bẩn)
+            option.Dirt_Absorb_R = Hấp thụ đỏ (cặn bẩn)
+            option.Dirt_Absorb_G = Hấp thụ lục (cặn bẩn)
+            option.Dirt_Absorb_B = Hấp thụ lam (cặn bẩn)
+            option.Water_Absorb_R = Hấp thụ đỏ (nước)
+            option.Water_Absorb_G = Hấp thụ lục (nước)
+            option.Water_Absorb_B = Hấp thụ lam (nước)
+
+
+screen.Post_Processing = Hậu kỳ
+    screen.Tonemapping = Ánh xạ tông màu / Màu sắc
+    screen.Exposure = Độ phơi sáng
+    screen.DepthOfField = Độ sâu trường ảnh (DoF)
+    screen.Purkinje_effect = Hiệu ứng Purkinje
+    option.SHARPENING = Độ sắc nét
+    option.BLOOM_STRENGTH = Hệ số bloom (lóa sáng)
+    screen.TAA_OPTIONS = Khử răng cưa
+        option.SCREENSHOT_MODE = Chế độ chụp ảnh
+        option.TAA = TAA
+        option.BLEND_FACTOR = Hệ số pha trộn
+        option.TAA_UPSCALING = Nâng độ phân giải theo thời gian
+        option.SCALE_FACTOR = Hệ số tỉ lệ
+	screen.COLOR_GRADING = Chỉnh màu (Color Grading)
+		option.LUMINANCE_CURVE = Đường cong tông màu
+		option.LOWER_CURVE = Đường cong vùng tối
+		option.UPPER_CURVE = Đường cong vùng sáng
+		option.COLOR_GRADING_ENABLED = Chỉnh màu (Color Grading)
+		option.SHADOWS_GRADE_R = Vùng tối §cĐỏ
+		option.SHADOWS_GRADE_G = Vùng tối §aLục
+		option.SHADOWS_GRADE_B = Vùng tối §9Lam
+		option.SHADOWS_GRADE_MUL = Độ sáng vùng tối
+		option.MIDS_GRADE_R = Vùng trung §cĐỏ
+		option.MIDS_GRADE_G = Vùng trung §aLục
+		option.MIDS_GRADE_B = Vùng trung §9Lam
+		option.MIDS_GRADE_MUL = Độ sáng vùng trung
+		option.HIGHLIGHTS_GRADE_R = Vùng sáng §cĐỏ
+		option.HIGHLIGHTS_GRADE_G = Vùng sáng §aLục
+		option.HIGHLIGHTS_GRADE_B = Vùng sáng §9Lam
+		option.HIGHLIGHTS_GRADE_MUL = Độ sáng vùng sáng
+
+
+screen.Resource_Pack_Support = Hỗ trợ gói tài nguyên
+    screen.Reflections = Phản chiếu gương
+        option.Specular_Reflections = Phản chiếu gương
+        option.Screen_Space_Reflections = Phản chiếu không gian màn hình (SSR)
+        option.Rough_reflections = Độ nhám chi tiết
+        option.Sky_reflection = Bầu trời / sương mù trong phản chiếu
+        option.Dynamic_SSR_quality = Chất lượng SSR động
+        option.Roughness_Threshold = Ngưỡng phản chiếu
+        option.Sun_specular_Strength = Hệ số phản chiếu Mặt Trời
+        option.reflection_quality = Chất lượng SSR
+
+    screen.Emissives = Phát sáng (Emissive)
+        option.Emissive_Brightness = Hệ số phát sáng
+        option.Emissive_Curve = Đường cong phát sáng
+        option.EMISSIVE_TYPE = Chế độ
+            value.EMISSIVE_TYPE.0 = Không phát sáng
+            value.EMISSIVE_TYPE.1 = Chỉ cài sẵn
+            value.EMISSIVE_TYPE.2 = Cài sẵn + Lab Emission
+            value.EMISSIVE_TYPE.3 = Chỉ Lab Emission
+
+
+screen.POM = Parallax Occlusion Mapping (POM)
+    option.POM = Parallax Occlusion Mapping
+    option.MAX_ITERATIONS = Chất lượng
+    option.POM_DEPTH = Độ sâu
+    option.MAX_DIST = Khoảng cách tối đa
+    option.Adaptive_Step_length = Chất lượng động
+    option.Horrible_slope_normals = Pháp tuyến dốc (kém)
+
+
+screen.Porosity = Độ thấm nước / Vũng nước
+    option.Porosity = Độ thấm nước
+    option.Puddles = Vũng nước
+    option.Puddle_Size = Hệ số kích thước vũng nước
+
+option.MATERIAL_AO = AO của vật liệu
+
+option.DOF_QUALITY = Độ sâu trường ảnh
+    value.DOF_QUALITY.-1 = Tắt
+    value.DOF_QUALITY.0 = Hình lục giác
+    value.DOF_QUALITY.1 = Thấp
+    value.DOF_QUALITY.2 = Vừa
+    value.DOF_QUALITY.3 = Cao
+    value.DOF_QUALITY.4 = Cực cao
+    value.DOF_QUALITY.5 = Rung (Jitter)
+	option.MANUAL_FOCUS = Lấy nét
+    option.DOF_ANAMORPHIC_RATIO = Tỉ lệ anamorphic
+    value.MANUAL_FOCUS.-2 = Tự động lấy nét
+	value.MANUAL_FOCUS.-1 = Thanh trượt độ sáng
+
+	screen.JITTER_DOF = Cài đặt DoF rung (Jitter)
+		option.JITTER_STRENGTH = Cường độ rung
+		option.FOCUS_LASER_COLOR = Lấy nét
+		value.FOCUS_LASER_COLOR.0 = Đỏ
+		value.FOCUS_LASER_COLOR.1 = Lục
+		value.FOCUS_LASER_COLOR.2 = Lam
+		value.FOCUS_LASER_COLOR.3 = Hồng
+		value.FOCUS_LASER_COLOR.4 = Vàng
+		value.FOCUS_LASER_COLOR.5 = Trắng
+
+option.AEROCHROME_MODE = Chế độ Aerochrome
+option.AEROCHROME_PINKNESS = Tỉ lệ đỏ:hồng Aerochrome
+option.AEROCHROME_WOOL_ENABLED = Len Aerochrome
+
+option.AEROCHROME_MODE.comment = Phim hồng ngoại. Hãy tìm trên Google "Aerochrome" để biết hiệu ứng trông như thế nào.
+option.AEROCHROME_PINKNESS.comment = Cao hơn = hồng hơn. Thấp hơn = đỏ hơn.
+option.AEROCHROME_WOOL_ENABLED.comment = Về mặt kỹ thuật len cũng nên bị ảnh hưởng, nhưng điều đó làm hỏng nhiều công trình. Bật để đúng kỹ thuật hơn.
+
+
+
+
+
+screen.Misc_Settings.comment = Các cài đặt ngẫu nhiên dùng để GỠ LỖI hoặc nghịch cho vui.
+screen.Sun_and_Moon_Colors.comment = Chỉnh màu của Mặt Trời và Mặt Trăng.
+option.sunPathRotation.comment = Chỉnh góc quỹ đạo của Mặt Trời và Mặt Trăng.
+option.sun_illuminance.comment = Chỉnh độ sáng của Mặt Trời.
+option.moon_illuminance.comment = Chỉnh độ sáng của Mặt Trăng.
+
+screen.Direct_Light.comment = Các cài đặt liên quan đến Mặt Trời và bóng đổ.
+
+screen.Shadows.comment = Tùy chỉnh bóng đổ do Mặt Trời tạo ra theo ý bạn.
+    option.SCREENSPACE_CONTACT_SHADOWS.comment = §bĐây là gì?§r Bóng đổ cho vật ở xa và cho các chi tiết nhỏ ở gần. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình; tốn hơn ở độ phân giải cao.
+    option.RENDER_ENTITY_SHADOWS.comment = §bĐây là gì?§r Bóng đổ cho mọi loại thực thể như sinh vật, rương, biểu ngữ hay biển báo. §aCHI PHÍ HIỆU NĂNG:§r thấp đến cao; rất tốn khi có nhiều thực thể ở gần.
+    option.shadowMapResolution.comment = Chất lượng bóng do Mặt Trời tạo ra từ các vật trong thế giới. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến rất cao; shader phải vẽ thế giới 3D lần thứ hai từ góc nhìn của Mặt Trời, vì vậy hiệu năng có thể giảm một nửa.
+    option.shadowDistance.comment = Khoảng cách tối đa mà shadowmap có thể vẽ. Khi đặt là không tối ưu, khoảng cách không được đo tuyến tính theo chunk. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến rất cao; nếu tầm nhìn chunk cao thì bóng đổ càng tốn.
+    option.OPTIMIZED_SHADOW_DISTANCE.comment = Chỉ vẽ bóng trong một hình cầu quanh bạn, giới hạn bởi khoảng cách tối đa tính theo chunk. Chế độ không tối ưu không vẽ theo hình cầu và không bị khóa theo chunk; với cùng khoảng cách nó phủ được vùng rộng hơn nhiều. Ở chế độ không tối ưu, khoảng cách không đo bằng chunk. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình. Tối ưu thì nhanh hơn, không tối ưu thì chậm hơn.
+    screen.Filtering.comment = Chỉnh các hiệu ứng lọc áp dụng lên bóng đổ.
+        option.SHADOW_FILTER_SAMPLE_COUNT.comment = Chất lượng của bộ lọc bóng cơ bản. Bộ lọc này chỉ làm mềm bóng. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình; tăng giá trị này sẽ giảm bớt nhiễu ở mép bóng.
+        option.Min_Shadow_Filter_Radius.comment = Độ mềm tối đa của bộ lọc bóng cơ bản.
+        option.Variable_Penumbra_Shadows.comment = Hiệu ứng này làm bóng càng mềm khi càng xa vật tạo ra nó. Dùng để tạo bóng chất lượng cao hơn và tán xạ dưới bề mặt. §aCHI PHÍ HIỆU NĂNG:§r thấp đến cao;
+        option.VPS_Search_Samples.comment = Chất lượng của bộ lọc bóng bán dạ biến thiên. §aCHI PHÍ HIỆU NĂNG:§r thấp đến cao; tăng giá trị này sẽ giảm nhiễu trong tán xạ dưới bề mặt và các bóng rất mềm.
+        option.Max_Shadow_Filter_Radius.comment = Độ mềm tối đa mà bóng có thể đạt được khi ở xa vật tạo ra nó.
+        option.Max_Filter_Depth.comment = Chỉnh kích thước của Mặt Trời. Mặt Trời càng lớn thì bóng càng mềm ngay gần vật tạo ra nó.
+
+screen.Ambient_light.comment = Các cài đặt liên quan đến ánh sáng ở những chỗ có bóng râm.
+    option.AO_Strength.comment = Chỉnh cường độ che khuất môi trường (AO) tạo bởi SSAO, GTAO, RTAO và SSGI. §bĐây là gì?§r AO là những bóng mềm nhỏ ở góc tường và các khe hở.
+    option.GI_Strength.comment = Chỉnh cường độ chiếu sáng toàn cục (GI) tạo bởi SSGI. §bĐây là gì?§r Trong trường hợp này, GI là ánh sáng phản xạ từ bề mặt này sang khu vực khác.
+    option.HQ_SSGI.comment = Bật/tắt chiếu sáng toàn cục không gian màn hình tầm xa. §aCHI PHÍ HIỆU NĂNG:§r rất cao
+    option.Hand_Held_lights.comment = Bật/tắt nguồn sáng cầm tay do shader xử lý. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.SKY_CONTRIBUTION_IN_SSRT.comment = Cho phép RTAO hoặc SSGI tính cả bầu trời và sương mù để tạo ánh sáng chất lượng cao cho vùng bóng râm. Có thể gây thêm nhiễu. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+
+    option.ambientOcclusionLevel.comment = Chỉnh cường độ AO của Minecraft gốc. §bĐây là gì?§r AO này có sẵn trong Minecraft ngay cả khi không bật shader.
+    option.ambient_brightness.comment = Chỉnh độ sáng của ánh sáng ở những chỗ có bóng râm.
+    option.MIN_LIGHT_AMOUNT.comment = Chỉnh lượng ánh sáng tối thiểu có thể có ở những chỗ có bóng râm.
+    option.indirect_effect.comment = Chọn các hiệu ứng khác nhau để ánh sáng ở chỗ có bóng râm đẹp hơn. §aCHI PHÍ HIỆU NĂNG:§r AO gốc: rất thấp. SSAO: thấp đến trung bình. GTAO: trung bình đến cao. RTAO hoặc SSGI: cao đến rất cao.
+
+    screen.Ambient_Colors.comment = Chỉnh màu ánh sáng ở những vùng có bóng râm.
+    screen.Torch_Colors.comment = Chỉnh màu ánh sáng từ đuốc và các nguồn sáng đặt trong thế giới.
+
+    option.LPV_SIZE.comment = Chỉnh kích thước (tính bằng khối) của vùng thể tích dùng cho ánh sáng màu.
+    option.LPV_SATURATION.comment = Chỉnh cường độ của ánh sáng màu.
+    option.LPV_TINT_SATURATION.comment = Chỉnh cường độ nhuộm màu của các khối trong suốt lên ánh sáng màu.
+    option.LPV_NORMAL_STRENGTH.comment = Chỉnh mức độ pháp tuyến bề mặt ảnh hưởng đến hướng ánh sáng.
+    option.LPV_ENTITY_LIGHTS.comment = Cho phép thực thể đóng góp vào ánh sáng màu.
+    option.LPV_REDSTONE_LIGHTS.comment = Cho phép các khối redstone đóng góp vào ánh sáng màu.
+    option.LPV_COLORED_CANDLES.comment = Cho phép nến có màu phát ra ánh sáng màu tương ứng.
+    option.LPV_NOSHADOW_HACK.comment = Bản vá cho Iris 1.7.0 trở xuống! Cho phép FloodFill hoạt động ở Nether và End, nhưng tắt ánh sáng của thực thể và vật phẩm rơi.
+    option.LPV_VL_FOG_ILLUMINATION.comment = Cho phép ánh sáng màu chiếu sáng không khí xung quanh nó.
+    option.LPV_VL_FOG_ILLUMINATION_BRIGHTNESS.comment = Chỉnh độ sáng của sương mù được chiếu sáng.
+    
+screen.Resource_Pack_Support.comment = Một số hiệu ứng dùng thông tin do gói tài nguyên cung cấp.
+    screen.Reflections.comment = Chỉnh các phản chiếu dùng thông tin từ gói tài nguyên LabPBR.
+        option.Specular_Reflections.comment = Bật/tắt mọi phản chiếu cho gói LabPBR. Mục này bật phản chiếu Mặt Trời và cho phép bật các cài đặt bên dưới. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.Screen_Space_Reflections.comment = Bật/tắt phản chiếu không gian màn hình. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+        option.Rough_reflections.comment = Bật/tắt độ nhám chi tiết hơn để phản chiếu đẹp hơn. Sẽ gây khá nhiều nhiễu hình. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến cao
+        option.Sky_reflection.comment = Bật/tắt phản chiếu bầu trời và sương mù. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình.
+        option.Dynamic_SSR_quality.comment = Giảm chất lượng phản chiếu không gian màn hình tùy theo mức độ nhìn thấy của chúng. Có thể tăng hiệu năng nhưng giảm chất lượng.
+        option.Roughness_Threshold.comment = Nếu độ nhám đạt ngưỡng này, mọi phản chiếu (trừ Mặt Trời) sẽ không được vẽ. Có thể tăng hiệu năng.
+        option.Sun_specular_Strength.comment = Chỉnh độ sáng của phản chiếu Mặt Trời.
+        option.reflection_quality.comment = Chỉnh chất lượng của phản chiếu không gian màn hình.
+
+screen.Subsurface_Scattering.comment = §bĐây là gì?§r Tán xạ dưới bề mặt là hiện tượng khi bạn chiếu đèn sáng vào bàn tay và nó bắt đầu phát sáng. Mặt Trời cũng làm điều tương tự với cây cối, vải, da và nhiều vật khác.
+    option.SSS_TYPE.comment = Chọn cách áp dụng tán xạ dưới bề mặt lên thế giới. §bCài sẵn:§r shader quyết định vật nào có hiệu ứng. §bLabSSS:§r gói tài nguyên quyết định vật nào có hiệu ứng. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.MOB_SSS.comment = Bật/tắt tán xạ dưới bề mặt cho sinh vật (bao gồm cả người chơi). §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.MISC_BLOCK_SSS.comment = Bật/tắt tán xạ dưới bề mặt cho các khối ngẫu nhiên có thể không phù hợp, chủ yếu là cỏ và cát. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.Ambient_SSS.comment = §bĐây là gì?§r Tán xạ dưới bề mặt từ ánh sáng bầu trời thay vì Mặt Trời. §aCHI PHÍ HIỆU NĂNG:§r rất thấp đến trung bình; nếu bật SSAO thì tốn rất ít, nhưng tốn hơn nếu SSAO TẮT
+    option.ambientsss_brightness.comment = Chỉnh độ sáng của tán xạ dưới bề mặt từ ánh sáng bầu trời.
+
+screen.Emissives.comment = §bĐây là gì?§r Phát sáng (emissive) là mức độ một vật tỏa ra ánh sáng hoặc phát sáng.
+    option.Emissive_Brightness.comment = Chỉnh độ sáng của hiệu ứng phát sáng trên texture.
+    option.EMISSIVE_TYPE.comment = Chọn cách áp dụng hiệu ứng phát sáng của texture lên thế giới. §bCài sẵn:§r shader quyết định vật nào phát sáng. §bLab:§r gói tài nguyên quyết định vật nào phát sáng. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.Emissive_Curve.comment = Quyết định texture phát sáng đạt độ sáng cao nhất nhanh đến mức nào. 1.0 là tuyến tính.
+
+screen.POM.comment = Các cài đặt liên quan đến parallax occlusion mapping, dùng thông tin từ gói tài nguyên.
+    option.POM.comment = §bĐây là gì?§r Hiệu ứng này cố tạo hình khối 3D ở nơi trước đó không có, bằng một ảnh đặc biệt từ gói tài nguyên. Hiệu ứng chủ yếu chỉ lõm vào trong nên có thể xuất hiện lỗi hình khi nhìn ở góc xiên. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến cao
+    option.MAX_ITERATIONS.comment = Chỉnh chất lượng hiệu ứng parallax occlusion mapping. Nếu bạn thấy từng lớp riêng lẻ khi nhìn gần, tăng giá trị này sẽ tạo thêm lớp nên khó thấy hơn. §aCHI PHÍ HIỆU NĂNG:§r cao
+    option.POM_DEPTH.comment = Hiệu ứng có thể lõm sâu bao nhiêu vào bề mặt. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.MAX_DIST.comment = Khoảng cách tối đa từ camera mà hiệu ứng parallax occlusion mapping còn được vẽ. §aCHI PHÍ HIỆU NĂNG:§r cao
+    option.Adaptive_Step_length.comment = Tăng chất lượng hình ảnh mà không cần tăng chất lượng thực tế. Có thể gây lỗi hình nếu nhìn rất gần hoặc heightmap quá phức tạp với độ cao thay đổi gắt.
+    option.Horrible_slope_normals.comment = Một cách triển khai làm kém để tạo bề mặt ở các cạnh bên của parallax occlusion mapping. Không khuyến khích dùng. §aCHI PHÍ HIỆU NĂNG:§r thấp
+    
+screen.Porosity.comment = Các cài đặt liên quan đến độ ẩm ướt và vũng nước.
+    option.Porosity.comment = §bĐây là gì?§r Độ thấm nước mô tả vật liệu xốp đến mức nào, tức là nó chứa được bao nhiêu nước. Ví dụ bọt biển rất xốp; nước thấm vào bên trong và làm nó sẫm màu hơn. §aCHI PHÍ HIỆU NĂNG:§r thấp
+    option.Puddles.comment = Bật/tắt vũng nước khi trời mưa. §aCHI PHÍ HIỆU NĂNG:§r thấp
+    option.Puddle_Size.comment = Chỉnh kích thước của các vũng nước.
+
+screen.Fog.comment = Các cài đặt liên quan đến sương mù thể tích (raymarch) hoặc sương mù theo khoảng cách.
+    option.VL_RENDER_RESOLUTION.comment = Chỉnh độ phân giải của sương mù thể tích. §aCHI PHÍ HIỆU NĂNG:§r cao
+    option.VL_SAMPLES.comment = Chỉnh chất lượng của sương mù thể tích. §aCHI PHÍ HIỆU NĂNG:§r cao
+    option.BLOOMY_FOG.comment = Chỉnh cường độ bloom áp dụng lên sương mù. §bĐây là gì?§r Hiệu ứng này làm sương mù trông mềm hơn và che bớt nhiễu một chút. Có thể gây nhấp nháy ở các cạnh chi tiết. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.Haze_amount.comment = Chỉnh độ dày đặc của bầu khí quyển quanh bạn. §bĐây là gì?§r Đây là lớp khói mù xanh bạn thấy ở phía xa.
+    option.RainFog_amount.comment = Chỉnh độ dày của sương mù khi trời mưa.
+    option.RAYMARCH_CLOUDS_WITH_FOG.comment = §cCẢNH BÁO§r: Cài đặt này còn thử nghiệm và chưa hoàn thiện! Bạn cần tăng số mẫu sương mù để khớp với mây thường. Bật sương mù chi tiết khi bạn ở trong hoặc gần đám mây. §aCHI PHÍ HIỆU NĂNG:§r cao.
+    option.BorderFog.comment = §bĐây là gì?§r Bật/tắt lớp sương mù cố che việc chunk đang tải. Nhưng vì bầu trời thay đổi liên tục nên rất khó làm tốt. §aCHI PHÍ HIỆU NĂNG:§r rất rất thấp
+
+    screen.TOD_fog.comment = Chỉnh mật độ sương mù xuất hiện vào những thời điểm cụ thể trong ngày.
+        option.TOD_Fog_mult.comment = Chỉnh tổng lượng sương mù xuất hiện vào những thời điểm cụ thể trong ngày. Không ảnh hưởng đến khói mù khí quyển.
+
+    screen.Cave_Fog.comment = Các cài đặt cho sương mù xuất hiện khi bạn ở nơi rất tối như hang động.
+        option.Cave_Fog.comment = Bật/tắt sương mù xuất hiện ở nơi tối. Shader không thể biết chính xác bạn có đang ở trong hang hay không nên sương mù này có thể xuất hiện ở nơi không phải hang. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.CaveFogFallOff.comment = Chỉnh tốc độ dải sương mù đạt đến phần sáng nhất.
+
+screen.Clouds.comment = Các cài đặt liên quan đến mây thể tích (raymarch).
+    option.VOLUMETRIC_CLOUDS.comment = Bật/tắt mây. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến cao
+    option.CLOUDS_QUALITY.comment = Chỉnh độ phân giải của mây thể tích. §aCHI PHÍ HIỆU NĂNG:§r cao
+    option.CLOUDS_SHADOWS.comment = Bật/tắt bóng của mây đổ xuống mặt đất và sương mù bên dưới chúng. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình
+    option.Daily_Weather.comment = Bật/tắt thời tiết thay đổi mỗi ngày. §bĐây là gì?§r Có 10 mẫu thời tiết mà shader luân phiên mỗi ngày. Bạn không thể chỉnh độ phủ mây khi bật mục này. §aCHI PHÍ HIỆU NĂNG:§r thấp
+    option.CHOOSE_RANDOM_WEATHER_PROFILE.comment = §bĐây là gì?§r Cho shader chọn ngẫu nhiên thời tiết từ một trong các ngày bên dưới. Khi tắt, shader sẽ chọn lần lượt theo thứ tự các ngày.
+    option.Cloud_Speed.comment = Chỉnh tốc độ mây trôi theo thời gian trong ngày.
+    option.Rain_coverage.comment = Chỉnh mức độ mây phủ bầu trời khi trời mưa.
+
+screen.World.comment = Các cài đặt cho môi trường và thế giới: mây, sương mù, khí hậu, bầu trời và cây lay động.
+    screen.Water.comment = Các cài đặt liên quan đến nước.
+        option.WATER_REFLECTIONS.comment = Bật/tắt mọi phản chiếu cho vật trong suốt. Mục này cho phép bật các cài đặt bên dưới. §aCHI PHÍ HIỆU NĂNG:§r thấp đến cao
+        option.SCREENSPACE_REFLECTIONS.comment = Bật/tắt phản chiếu không gian màn hình trên vật trong suốt. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+        option.SSR_STEPS.comment = Chỉnh chất lượng phản chiếu không gian màn hình trên vật trong suốt. §aCHI PHÍ HIỆU NĂNG:§r trung bình đến cao
+        option.WATER_SUN_SPECULAR.comment = Bật/tắt phản chiếu Mặt Trời và Mặt Trăng trên vật trong suốt. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.WATER_BACKGROUND_SPECULAR.comment = Bật/tắt phản chiếu bầu trời và sương mù trên vật trong suốt. §aCHI PHÍ HIỆU NĂNG:§r thấp đến trung bình
+        option.Refraction.comment = Bật/tắt khúc xạ trên vật trong suốt. §bĐây là gì?§r Khi nhìn vào nước, bạn thấy ánh sáng bị khúc xạ làm méo những gì ở bên trong. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.Dirt_Amount.comment = Chỉnh lượng cặn bẩn trong nước. Giá trị này quyết định độ đục (sương mù) bên trong nước; thấp hơn = nước trong hơn.
+        option.Water_Top_Layer.comment = Chỉnh tọa độ Y của mặt biển trong thế giới.
+        
+        screen.Water_fog_color.comment = Chỉnh màu sương mù trong nước.
+
+screen.Climate.comment = Các cài đặt liên quan đến khí hậu, như màu theo mùa, thời tiết theo ngày và sương mù riêng của từng quần xã.
+    screen.Seasons.comment = Màu sắc thay đổi lần lượt theo mùa hè, thu, đông và xuân.
+        option.Seasons.comment = Màu sắc thay đổi lần lượt theo mùa hè, thu, đông và xuân. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.Season_Length.comment = Chỉnh độ dài của một mùa, tính bằng ngày trong Minecraft.
+        option.Snowy_Winter.comment = Bật/tắt tuyết vào mùa đông. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        screen.Summer_colors.comment = Chỉnh màu thực vật vào mùa hè.
+        screen.Fall_colors.comment = Chỉnh màu thực vật vào mùa thu.
+        screen.Winter_colors.comment = Chỉnh màu thực vật vào mùa đông.
+        screen.Spring_colors.comment = Chỉnh màu thực vật vào mùa xuân.
+    
+    option.PER_BIOME_ENVIRONMENT.comment = Bật/tắt mọi môi trường đặc biệt chỉ xuất hiện ở một số quần xã. §aCHI PHÍ HIỆU NĂNG:§r thấp
+
+        screen.SWAMP.comment = Chỉnh môi trường của loại quần xã này.
+            option.SWAMP_ENV.comment = Chỉ bật/tắt môi trường cho loại quần xã này. Môi trường của các quần xã khác vẫn hoạt động dù mục này bị tắt.
+
+        screen.JUNGLE.comment = Chỉnh môi trường của loại quần xã này.
+            option.JUNGLE_ENV.comment = Chỉ bật/tắt môi trường cho loại quần xã này. Môi trường của các quần xã khác vẫn hoạt động dù mục này bị tắt.
+
+        screen.DARKFOREST.comment = Chỉnh môi trường của loại quần xã này.
+            option.DARKFOREST_ENV.comment = Chỉ bật/tắt môi trường cho loại quần xã này. Môi trường của các quần xã khác vẫn hoạt động dù mục này bị tắt.
+
+
+screen.Waving_Stuff.comment = Các cài đặt liên quan đến những thứ lay động.
+    option.WAVY_PLANTS.comment = Bật/tắt cây cối lay động. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+    option.WAVY_STRENGTH.comment = Chỉnh mức độ cây lay động.
+    option.WAVY_SPEED.comment = Chỉnh tốc độ cây lay động.
+
+screen.Post_Processing.comment = Các cài đặt cho mọi hiệu ứng hậu kỳ, từ khử răng cưa đến ánh xạ tông màu.
+    screen.Tonemapping.comment = Các cài đặt liên quan đến màu sắc và ánh xạ tông màu.
+    screen.Exposure.comment = Các cài đặt liên quan đến độ phơi sáng.
+    screen.DepthOfField.comment = Các cài đặt liên quan đến độ sâu trường ảnh.
+    screen.Purkinje_effect.comment = Các cài đặt liên quan đến hiệu ứng Purkinje.
+    option.SHARPENING.comment = Chỉnh mức làm nét thích ứng theo độ tương phản áp dụng lên ảnh. Có thể lấy lại nhiều chi tiết bị mất do khử răng cưa hoặc nâng độ phân giải.
+    option.BLOOM_STRENGTH.comment = Chỉnh lượng bloom áp dụng lên ảnh. §bĐây là gì?§r Bloom là quầng sáng mềm quanh mọi thứ, cho thấy vật đó sáng hay không.
+    screen.TAA_OPTIONS.comment = Các cài đặt liên quan đến khử răng cưa.
+        option.SCREENSHOT_MODE.comment = Bật/tắt tích lũy khung hình để có ảnh ít nhiễu và chất lượng cao. §bĐây là gì?§r Nó chồng các khung hình đã qua lên khung hình mới tạo ra, giống như ảnh phơi sáng dài.
+        option.TAA.comment = Bật/tắt khử răng cưa theo thời gian. Xóa mọi cạnh răng cưa, làm ảnh mềm hơn và giúp giảm nhiễu cho nhiều hiệu ứng. Sẽ gây bóng mờ hoặc vệt đuôi vì dùng các khung hình cũ để lấy thêm thông tin. §aCHI PHÍ HIỆU NĂNG:§r thấp
+        option.BLEND_FACTOR.comment = Chỉnh mức dùng lịch sử khung hình. Giá trị cao nghĩa là ít dựa vào lịch sử nên có thể nhấp nháy và nhiễu. Giá trị thấp dựa nhiều vào lịch sử nên ít nhiễu hơn nhưng bị nhòe và có nhiều vệt đuôi hơn.
+        option.TAA_UPSCALING.comment = Bật/tắt nâng độ phân giải theo thời gian. Giữ được khá nhiều chất lượng từ ảnh có độ phân giải thấp khi nâng lên, nên bạn vẫn có hình ảnh sắc nét hơn so với nâng thông thường mà hiệu năng vẫn tốt hơn.
+        option.SCALE_FACTOR.comment = Chỉnh phần độ phân giải của bạn dùng để nâng lên. Dưới 0.5 hoàn toàn không khuyến khích, mục này chỉ để cho vui :P
+	screen.COLOR_GRADING.comment = Các tùy chọn chỉnh màu nâng cao.
+		option.LUMINANCE_CURVE.comment = Bật đường cong tông màu. Độc lập với chỉnh màu và được áp dụng trước.
+		option.COLOR_GRADING_ENABLED.comment = Bật chỉnh màu. Các thanh trượt RGB sẽ không ảnh hưởng đến độ sáng. Được áp dụng sau đường cong tông màu.
+
+option.RESOURCEPACK_SKY.comment = Bật/tắt hỗ trợ bầu trời của gói tài nguyên. Chọn dùng toàn bộ bầu trời của gói hoặc giữ Mặt Trời và Mặt Trăng của shader. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+option.SKY_GROUND = Mặt đất khí quyển
+
+option.MATERIAL_AO.comment = Bật/tắt dùng AO dựa trên dữ liệu gói tài nguyên cung cấp. §aCHI PHÍ HIỆU NĂNG:§r rất thấp
+option.WATER_WAVE_STRENGTH.comment = Chỉnh mức độ sóng nước hiện rõ.
+option.MOONPHASE_BASED_MOONLIGHT.comment = §bĐây là gì?§r Mỗi đêm Mặt Trăng có độ sáng khác nhau. Cài đặt này chỉnh độ sáng ánh trăng theo phần Mặt Trăng đang sáng. §aCHI PHÍ HIỆU NĂNG:§r gần như không đáng kể
+
+option.END_STORM_DENSTIY.comment = §bĐây là gì?§r Đây là lớp sương mù mây tối ở End. Chỉnh mật độ bão End.
+option.NETHER_PLUME_DENSITY.comment = §bĐây là gì?§r Đây là những cột khói dày phát sáng ở Nether. Chỉnh mật độ khói Nether.
+
+option.CloudLayer0.comment = Bật/tắt tầng mây nhỏ. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+option.CloudLayer0_coverage.comment = Chỉnh độ phủ của những đám mây này trên bầu trời.
+option.CloudLayer0_density.comment = Chỉnh độ đặc (dày) của những đám mây này.
+option.CloudLayer0_height.comment = Chỉnh độ cao mà những đám mây này bay.
+
+option.CloudLayer1.comment = Bật/tắt tầng mây lớn. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+option.CloudLayer1_coverage.comment = Chỉnh độ phủ của những đám mây này trên bầu trời.
+option.CloudLayer1_density.comment = Chỉnh độ đặc (dày) của những đám mây này.
+option.CloudLayer1_height.comment = Chỉnh độ cao mà những đám mây này bay. §cKHÔNG ĐƯỢC THẤP HƠN MÂY NHỎ§r
+
+option.CloudLayer2.comment = Bật/tắt tầng mây rất cao và mỏng. §aCHI PHÍ HIỆU NĂNG:§r thấp
+option.CloudLayer2_coverage.comment = Chỉnh độ phủ của những đám mây này trên bầu trời.
+option.CloudLayer2_density.comment = Chỉnh độ đặc (dày) của những đám mây này.
+option.CloudLayer2_height.comment = Chỉnh độ cao mà những đám mây này bay. §cKHÔNG ĐƯỢC THẤP HƠN MÂY LỚN§r
+
+option.SKY_GROUND.comment = §bĐây là gì?§r Đây là nửa dưới tối của bầu trời, lẽ ra là mặt đất nếu Minecraft có tầm nhìn vô hạn. §aCHI PHÍ HIỆU NĂNG:§r rất rất thấp. §cTắt mục này lại chậm hơn đôi chút so với bật vì cần tính toán thêm.§r
+option.SNELLS_WINDOW.comment = §bĐây là gì?§r Đây là vòng tròn tối phản chiếu bạn thấy khi ở dưới nước. Nó mô phỏng hiện tượng ngoài đời gọi là "phản xạ toàn phần". §aCHI PHÍ HIỆU NĂNG:§r cực kỳ nhỏ.
+option.entityShadowDistanceMul.comment = §bĐây là gì?§r Chỉnh khoảng cách bóng đổ hoạt động cho thực thể. Hữu ích nếu bạn muốn giữ bóng thực thể và tăng hiệu năng ở nơi có nhiều thực thể.
+
+screen.DISTANT_HORIZONS_SETTINGS = Distant Horizons - §cCẦN IRIS§r
+option.DH_OVERDRAW_PREVENTION = Chống vẽ chồng (overdraw)
+option.OVERDRAW_MAX_DISTANCE = Khoảng cách tối đa chống vẽ chồng
+    value.OVERDRAW_MAX_DISTANCE.0 = Không giới hạn
+    value.OVERDRAW_MAX_DISTANCE.32 = 2 chunk
+    value.OVERDRAW_MAX_DISTANCE.48 = 3 chunk
+    value.OVERDRAW_MAX_DISTANCE.64 = 4 chunk
+    value.OVERDRAW_MAX_DISTANCE.80 = 5 chunk
+    value.OVERDRAW_MAX_DISTANCE.96 = 6 chunk
+    value.OVERDRAW_MAX_DISTANCE.112 = 7 chunk
+    value.OVERDRAW_MAX_DISTANCE.128 = 8 chunk
+    value.OVERDRAW_MAX_DISTANCE.144 = 9 chunk
+    value.OVERDRAW_MAX_DISTANCE.160 = 10 chunk
+    value.OVERDRAW_MAX_DISTANCE.176 = 11 chunk
+    value.OVERDRAW_MAX_DISTANCE.192 = 12 chunk
+    value.OVERDRAW_MAX_DISTANCE.208 = 13 chunk
+    value.OVERDRAW_MAX_DISTANCE.224 = 14 chunk
+    value.OVERDRAW_MAX_DISTANCE.240 = 15 chunk
+    value.OVERDRAW_MAX_DISTANCE.256 = 16 chunk
+
+option.DH_AMBIENT_OCCLUSION = AO trên chunk LOD
+option.DH_SUBSURFACE_SCATTERING = Tán xạ dưới bề mặt trên chunk LOD
+option.DH_SCREENSPACE_REFLECTIONS = Phản chiếu không gian màn hình trên chunk LOD
+
+option.DISTANT_HORIZONS_SHADOWMAP = §c(KHÔNG DÙNG NẾU BẠN KHÔNG BIẾT ĐÂY LÀ GÌ)§r Hỗ trợ shadowmap cho DH
+option.DISTANT_HORIZONS_SHADOWMAP.comment = §cCÀI ĐẶT NÀY SẼ LÀM HIỆU NĂNG TỤT MẠNH, BÓNG ĐỔ SẼ BỊ VUÔNG, NHẤP NHÁY VÀ ÍT CHI TIẾT§r. Đặt khoảng cách bóng từ 32 chunk trở lên. Đặt độ phân giải bóng từ 4096 trở lên.
+option.TOGGLE_VL_FOG = Bật/tắt sương mù thể tích
+option.TOGGLE_VL_FOG.comment = Một nút lớn để tắt toàn bộ sương mù.
+
+option.TRANSLUCENT_COLORED_SHADOWS.comment = §bĐây là gì?§r Hiệu ứng cho phép vật trong suốt như kính màu nhuộm màu cho ánh nắng khi nó đi xuyên qua. §aCHI PHÍ HIỆU NĂNG:§r trung bình
+
+# ---- Nhãn bổ sung cho các tùy chọn trước đây chưa có tên ----
+screen.EXPERIMENTAL_STUFF = Thử nghiệm
+screen.FOG_LIGHTING_COLORS = Màu ánh sáng sương mù
+screen.GAMEPLAY_EFFECTS = Hiệu ứng khi chơi
+screen.Seasons = Theo mùa
+screen.Sky_coefficients = Hệ số bầu trời
+screen.selection_box_outline = Viền khối đang chọn
+screen.the_end_orb = Quả cầu End
+screen.PHYSICS_MOD_OCEAN_IS_NOT_SUPPORTED = Physics Mod: không hỗ trợ đại dương
+option.AUTO_EXPOSURE = Tự động phơi sáng
+option.BASIC_SHADOW_FILTER = Bộ lọc bóng cơ bản
+option.BIOME_TINT_WATER = Nhuộm màu nước theo quần xã
+option.BLOOMY_PARTICLES = Hạt có bloom
+option.CAMERA_GRIDLINES = Lưới bố cục camera
+option.CAVE_FOG = Bật sương mù hang động
+option.CAVE_FOG_DARKEN_SKY = Làm tối bầu trời trong hang
+option.CLOUDS_INTERSECT_TERRAIN = Mây giao cắt với địa hình
+option.CLOUD_SHADOW_STRENGTH = Cường độ bóng của mây
+option.CROSSTALK = Nhiễu màu chéo (crosstalk)
+option.DAMAGE_TAKEN_EFFECT = Hiệu ứng khi nhận sát thương
+option.DEBUG_VIEW = Chế độ xem gỡ lỗi
+option.DH_NOISE_TEXTURE = Nhiễu texture trên chunk LOD
+option.DISABLE_ENCHANT_GLINT = Tắt ánh sáng phù phép
+option.DISABLE_VANILLA_EMISSIVES = Tắt phát sáng của Minecraft gốc
+option.DoF_Adaptation_Speed = Tốc độ thích ứng DoF
+option.END_HAZE_DENSTIY = Mật độ khói mù End
+option.END_LIGHTNING = Sét ở End
+option.EXPOSURE_MULTIPLIER = Hệ số phơi sáng
+option.Exposure_Speed = Tốc độ thích ứng phơi sáng
+option.FAR_BLUR_ONLY = Chỉ làm mờ vật ở xa
+option.FOG_START_HEIGHT = Độ cao bắt đầu của sương mù
+option.FORCE_TRANSLUCENT_GLASS = Ép kính trong suốt
+option.HANDHELD_LIGHT_RANGE = Tầm sáng vật cầm tay
+option.HYPER_DETAILED_WAVES = Sóng siêu chi tiết
+option.LARGE_WAVE_DISPLACEMENT = Sóng nhấp nhô thật (dịch chuyển đỉnh)
+option.LIGHTING_EFFECTS_BLUR_FILTER = Bộ lọc làm mịn hiệu ứng ánh sáng
+option.LIGHTNING_FLASH = Chớp sáng khi có sét
+option.LIT_PARTICLE_BRIGHTNESS = Độ sáng hạt phát sáng
+option.LOW_HEALTH_EFFECT = Hiệu ứng khi máu thấp
+option.MOTION_AMOUNT = Mức độ chuyển động
+option.MOTION_BLUR = Mờ chuyển động
+option.MOTION_BLUR_STRENGTH = Cường độ mờ chuyển động
+option.Manual_exposure_value = Giá trị phơi sáng thủ công
+option.Moon_temp = Nhiệt độ màu Mặt Trăng
+option.NETHER_CEILING_SMOKE_DENSITY = Mật độ khói trần Nether
+option.NETHER_HAZE_DENSITY = Mật độ khói mù Nether
+option.NOISE_DROPOFF = Khoảng cách giảm nhiễu
+option.NOISE_INTENSITY = Cường độ nhiễu
+option.NOISE_RESOLUTION = Độ phân giải nhiễu
+option.OLD_BLOOM = Bloom kiểu cũ
+option.OLD_CAVE_DETECTION = Nhận diện hang kiểu cũ
+option.OLD_LIGHTLEAK_FIX = Sửa rò sáng kiểu cũ
+option.ORIGINAL_CHOCAPIC_SKY = Bầu trời Chocapic gốc
+option.PARTICLE_RENDERING_FIX = Sửa lỗi vẽ hạt
+option.PLANET_GROUND_BRIGHTNESS = Độ sáng mặt đất hành tinh
+option.Purkinje_Multiplier = Hệ số Purkinje
+option.Purkinje_strength = Cường độ Purkinje
+option.SAND_STORMS = Bão cát
+option.SNOW_STORMS = Bão tuyết
+option.SATURATION = Độ bão hòa màu
+option.SSS_view = Xem SSS (gỡ lỗi)
+option.Sky_Brightness = Độ sáng bầu trời
+option.Sun_temp = Nhiệt độ màu Mặt Trời
+option.THE_ORB = Quả cầu End
+option.ORB_X = Vị trí X
+option.ORB_Y = Vị trí Y
+option.ORB_Z = Vị trí Z
+option.ORB_ColMult = Hệ số màu
+option.ORB_R = Màu - đỏ
+option.ORB_G = Màu - lục
+option.ORB_B = Màu - lam
+option.TONEMAP = Ánh xạ tông màu
+option.TRANSLUCENT_ENTITIES = Thực thể trong suốt
+option.USE_ACES_COLORSPACE_APPROXIMATION = Xấp xỉ không gian màu ACES
+option.Vanilla_like_water = Nước kiểu Minecraft gốc
+option.WATER_CAUSTICS_BRIGHTNESS = Độ sáng caustics (vệt sáng dưới nước)
+option.WATER_ON_CAMERA_EFFECT = Hiệu ứng nước bám lên camera
+option.WATER_WAVE_SPEED = Tốc độ sóng
+option.WhiteWorld = Thế giới trắng (gỡ lỗi)
+option.ambientLight_only = Chỉ ánh sáng môi trường (gỡ lỗi)
+option.colortype = Kiểu màu
+option.display_LUT = Hiển thị LUT
+option.focal = Tiêu cự
+option.fstop = Khẩu độ (f-stop)
+option.maxRayMarchSteps = Số bước raymarch tối đa
+option.minRayMarchSteps = Số bước raymarch tối thiểu
+option.sss_absorbance_multiplier = Hệ số hấp thụ SSS
+option.sss_density_multiplier = Hệ số mật độ SSS
+option.SELECT_BOX = Viền khối đang chọn
+option.SELECT_BOX_COL_R = Màu viền - đỏ
+option.SELECT_BOX_COL_G = Màu viền - lục
+option.SELECT_BOX_COL_B = Màu viền - lam
+option.sunColorR = Màu Mặt Trời - đỏ
+option.sunColorG = Màu Mặt Trời - lục
+option.sunColorB = Màu Mặt Trời - lam
+option.moonColorR = Màu Mặt Trăng - đỏ
+option.moonColorG = Màu Mặt Trăng - lục
+option.moonColorB = Màu Mặt Trăng - lam
+option.Purkinje_R = Purkinje - đỏ
+option.Purkinje_G = Purkinje - lục
+option.Purkinje_B = Purkinje - lam
+option.VORTEX_LIGHT_COL_R = Màu xoáy - đỏ
+option.VORTEX_LIGHT_COL_G = Màu xoáy - lục
+option.VORTEX_LIGHT_COL_B = Màu xoáy - lam
+option.END_LIGHTNING_COL_R = Màu sét - đỏ
+option.END_LIGHTNING_COL_G = Màu sét - lục
+option.END_LIGHTNING_COL_B = Màu sét - lam
+option.sky_coefficientRayleighR = Rayleigh bầu trời - đỏ
+option.sky_coefficientRayleighG = Rayleigh bầu trời - lục
+option.sky_coefficientRayleighB = Rayleigh bầu trời - lam
+option.sky_coefficientMieR = Mie bầu trời - đỏ
+option.sky_coefficientMieG = Mie bầu trời - lục
+option.sky_coefficientMieB = Mie bầu trời - lam
+option.fog_coefficientRayleighR = Rayleigh sương mù - đỏ
+option.fog_coefficientRayleighG = Rayleigh sương mù - lục
+option.fog_coefficientRayleighB = Rayleigh sương mù - lam
+option.fog_coefficientMieR = Mie sương mù - đỏ
+option.fog_coefficientMieG = Mie sương mù - lục
+option.fog_coefficientMieB = Mie sương mù - lam
+value.colortype.1 = Thanh trượt RGB
+value.colortype.2 = Vật đen (theo nhiệt độ)
+value.TONEMAP.ToneMap_AgX_minimal = AgX tối giản
+value.TONEMAP.ToneMap_AgX = AgX
+value.TONEMAP.ToneMap_Hejl2015 = Hejl 2015
+value.TONEMAP.Tonemap_Xonk = Xonk
+value.TONEMAP.Tonemap_Uchimura = Uchimura
+value.TONEMAP.HableTonemap = Hable
+value.TONEMAP.Full_Reinhard_Edit = Reinhard đầy đủ (bản sửa)
+value.TONEMAP.Tonemap_Full_Reinhard = Reinhard đầy đủ
+value.TONEMAP.reinhard = Reinhard
+value.TONEMAP.Tonemap_Lottes = Lottes
+value.TONEMAP.ACESFilm = ACES Film
+value.DEBUG_VIEW.debug_OFF = Tắt
+value.DEBUG_VIEW.debug_SHADOWMAP = Shadowmap
+value.DEBUG_VIEW.debug_NORMALS = Pháp tuyến
+value.DEBUG_VIEW.debug_SPECULAR = Specular
+value.DEBUG_VIEW.debug_INDIRECT = Ánh sáng gián tiếp
+value.DEBUG_VIEW.debug_DIRECT = Ánh sáng trực tiếp
+value.DEBUG_VIEW.debug_VIEW_POSITION = Vị trí trong không gian nhìn
+value.DEBUG_VIEW.debug_DH_WATER_BLENDING = Hòa trộn nước DH
+value.DEBUG_VIEW.debug_FILTERED_STUFF = Dữ liệu đã lọc
+value.DEBUG_VIEW.debug_TEMPORAL_REPROJECTION = Chiếu lại theo thời gian
+option.WATER_WAVE_SPEED.comment = Chỉnh tốc độ trôi của sóng nước.
+option.Vanilla_like_water.comment = Dùng màu nước gốc của Minecraft thay vì màu nước của shader.
+option.LARGE_WAVE_DISPLACEMENT.comment = Làm mặt nước nhấp nhô thật sự (dịch chuyển đỉnh), không chỉ là hiệu ứng ánh sáng.
+option.HYPER_DETAILED_WAVES.comment = Sóng chi tiết hơn ở khoảng cách gần. Có thể gây nhiễu ở xa.
+option.WATER_CAUSTICS_BRIGHTNESS.comment = Chỉnh độ sáng của các vệt sáng chuyển động dưới đáy nước.
+option.BIOME_TINT_WATER.comment = Nhuộm màu nước theo màu của quần xã thay vì dùng màu mặc định.
