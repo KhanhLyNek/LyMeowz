@@ -1,5 +1,5 @@
-profile.SHADER_VERSION_LABEL = Bliss V2.1.1
-profile.OLD_BLISS_TONEMAP = Bliss V2.1.1 + v2.0.4 色彩处理
+profile.SHADER_VERSION_LABEL = LyMeowz V2.1.1
+profile.OLD_LYMEOWZ_TONEMAP = LyMeowz V2.1.1 + v2.0.4 色彩处理
 
 # if you're here to translate, this is a joke, these don't do what they say
 profile.QUALITY=质量
