@@ -45,3 +45,10 @@ Temporal credits entry to people who added more mod support to LyMeowz:
 Water wave style and water color values are inspired by, and adapted from:
 
 	Sonic Ether (Cody Darr) / Sonic Ether's Unbelievable Shaders (SEUS) / http://www.sonicether.com
+
+
+Night sky (twinkling coloured stars, galaxy texture, phase-lit moon, aurora) is adapted from Photon:
+
+	SixthSurge / https://github.com/sixthsurge/photon
+	Used under the Photon Shaders License, see LICENSE-Photon.txt (files: shaders/lib/night_sky.glsl, shaders/texture/galaxy.png)
+	The star field is based on https://www.shadertoy.com/view/Md2SR3

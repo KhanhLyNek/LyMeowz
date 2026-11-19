@@ -189,6 +189,7 @@ float ld(float dist) {
 }
 
 #include "/lib/sky_gradient.glsl"
+#include "/lib/night_sky.glsl"
 vec3 decode (vec2 encn){
     vec3 n = vec3(0.0);
     encn = encn * 2.0 - 1.0;
@@ -940,11 +941,30 @@ void main() {
 				
 				orbitstar.xy *= rotationMatrix;
 
-				Background += stars(orbitstar) * 10.0 * clamp(-unsigned_WsunVec.y*2.0,0.0,1.0);
+				float nsNight = clamp(-unsigned_WsunVec.y*2.0,0.0,1.0);
+				float nsWeather = 1.0 - rainStrength;
+				float nsGalaxyLum = 0.0;
+
+				#if defined NS_GALAXY && RESOURCEPACK_SKY == 0
+					Background += ns_galaxy(orbitstar, colortex10, nsNight, nsGalaxyLum) * (NS_UNIT * nsNight * nsWeather);
+				#endif
+
+				#ifdef NS_STARS
+					Background += ns_stars(orbitstar, nsGalaxyLum, nsNight) * (NS_UNIT * nsNight * nsWeather);
+				#endif
+
+				#if NS_AURORA > 0
+					Background += ns_aurora(feetPlayerPos_normalized, noise, float(worldDay), ns_aurora_amount(float(worldDay), nsNight) * nsWeather) * NS_UNIT;
+				#endif
 
 				#if !defined ambientLight_only && (RESOURCEPACK_SKY == 1 || RESOURCEPACK_SKY == 0)
 					Background += drawSun(dot(lightCol.a * WsunVec, feetPlayerPos_normalized),0, DirectLightColor,vec3(0.0));
-					Background += drawMoon(feetPlayerPos_normalized,  lightCol.a * WsunVec, DirectLightColor*20, Background); 
+					#ifdef NS_MOON
+						vec4 nsMoon = ns_moon(feetPlayerPos_normalized, -unsigned_WsunVec, moonPhase);
+						Background = Background * (1.0 - nsMoon.a) + nsMoon.rgb * NS_UNIT;
+					#else
+						Background += drawMoon(feetPlayerPos_normalized,  lightCol.a * WsunVec, DirectLightColor*20, Background); 
+					#endif
 				#endif
 
 				Background *= atmosphereGround;

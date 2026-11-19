@@ -737,3 +737,26 @@ option.TOGGLE_VL_FOG = Toggle Volumetric Fog
 option.TOGGLE_VL_FOG.comment = one big button to just turn all the fog off.
 
 option.TRANSLUCENT_COLORED_SHADOWS.comment = §bWhat is this?§r This effect allows translucent things like stained glass to color the sunlight as it passes through it. §aPERFORMANCE COST:§r medium
+# ---- Night sky (adapted from Photon) ----
+screen.Night_Sky = Night Sky
+screen.Night_Sky.comment = Twinkling coloured stars, galaxy, phase-lit moon and aurora. Adapted from SixthSurge's Photon shader.
+option.NS_STARS = Stars
+option.NS_STARS.comment = Enable the twinkling, multi-coloured star field.
+option.NS_STARS_INTENSITY = Star Brightness
+option.NS_STARS_COVERAGE = Star Density
+option.NS_STARS_COVERAGE.comment = How many stars appear in the sky.
+option.NS_GALAXY = Galaxy
+option.NS_GALAXY.comment = Show the galaxy at night. Only works while "Resource Pack Sky" is off (0).
+option.NS_GALAXY_INTENSITY = Galaxy Brightness
+option.NS_MOON = New Moon
+option.NS_MOON.comment = Moon with surface detail that follows the game's moon phase.
+option.NS_MOON_BRIGHTNESS = Moon Brightness
+option.NS_MOON_SIZE = Moon Size
+option.NS_MOON_SIZE.comment = Angular radius of the moon in degrees.
+option.NS_AURORA = Aurora
+option.NS_AURORA.comment = Aurora at night. "Rarely" means roughly 1 night in 5, with colours changing each day.
+value.NS_AURORA.0 = Off
+value.NS_AURORA.1 = Rarely
+value.NS_AURORA.2 = Always
+option.NS_AURORA_BRIGHTNESS = Aurora Brightness
+option.NS_AURORA_FREQUENCY = Aurora Band Density
